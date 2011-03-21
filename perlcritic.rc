@@ -20,7 +20,7 @@ functions = :builtins
 exclude_functions = print say
 
 [Subroutines::ProhibitCallsToUndeclaredSubs]
-exempt_subs = 
+exempt_subs = Moose::around Moose::has Moose::with Moose::Util::TypeConstraints::as Moose::Util::TypeConstraints::coerce Moose::Util::TypeConstraints::from Moose::Util::TypeConstraints::subtype Moose::Util::TypeConstraints::via Path::Class::file MooseX::Has::Sugar::Minimal::ro
 
 [TestingAndDebugging::RequireUseStrict]
 equivalent_modules = Modern::Perl
