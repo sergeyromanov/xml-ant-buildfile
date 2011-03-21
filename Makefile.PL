@@ -25,7 +25,7 @@ my %WriteMakefileArgs = (
   },
   'DISTNAME' => 'XML-Ant-BuildFile',
   'EXE_FILES' => [],
-  'LICENSE' => 'restrictive',
+  'LICENSE' => 'perl',
   'NAME' => 'XML::Ant::BuildFile',
   'PREREQ_PM' => {
     'Carp' => '0',
