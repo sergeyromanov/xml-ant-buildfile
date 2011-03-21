@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::VERSION = '0.200';
+    $XML::Ant::BuildFile::Project::VERSION = '0.141';
 }
 
 # ABSTRACT: consume Ant build files
@@ -94,7 +94,7 @@ XML::Ant::BuildFile::Project - consume Ant build files
 
 =head1 VERSION
 
-version 0.200
+version 0.141
 
 =head1 SYNOPSIS
 
