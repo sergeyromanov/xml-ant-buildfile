@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Role::HasProjects;
 
 BEGIN {
-    $XML::Ant::BuildFile::Role::HasProjects::VERSION = '0.200';
+    $XML::Ant::BuildFile::Role::HasProjects::VERSION = '0.141';
 }
 
 # ABSTRACT: Compose a collection of Ant build file projects
@@ -98,7 +98,7 @@ XML::Ant::BuildFile::Role::HasProjects - Compose a collection of Ant build file 
 
 =head1 VERSION
 
-version 0.200
+version 0.141
 
 =head1 SYNOPSIS
 
