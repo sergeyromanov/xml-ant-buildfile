@@ -9,7 +9,7 @@ allowed_pragmata = diagnostics feature perlversion strict warnings utf8
 flowcontrol = carp cluck confess croak die exit goto warn exit
 
 [Documentation::PodSpelling]
-stop_words = 
+stop_words = filelists os basedir bugtracker
 
 [Documentation::RequirePodSections]
 lib_sections = NAME | VERSION | SYNOPSIS | DESCRIPTION | BUGS | AUTHOR | COPYRIGHT AND LICENSE
@@ -20,7 +20,7 @@ functions = :builtins
 exclude_functions = print say
 
 [Subroutines::ProhibitCallsToUndeclaredSubs]
-exempt_subs = Moose::around Moose::has Moose::with Moose::Util::TypeConstraints::as Moose::Util::TypeConstraints::coerce Moose::Util::TypeConstraints::from Moose::Util::TypeConstraints::subtype Moose::Util::TypeConstraints::via Path::Class::file MooseX::Has::Sugar::Minimal::ro
+exempt_subs = Carp::carp Moose::around Moose::has Moose::with Moose::Role::has Moose::Util::TypeConstraints::as Moose::Util::TypeConstraints::coerce Moose::Util::TypeConstraints::from Moose::Util::TypeConstraints::subtype Moose::Util::TypeConstraints::via MooseX::Has::Sugar::coerce MooseX::Has::Sugar::required MooseX::Has::Sugar::rw MooseX::Has::Sugar::Minimal::ro Path::Class::dir Path::Class::file TryCatch::catch TryCatch::try
 
 [TestingAndDebugging::RequireUseStrict]
 equivalent_modules = Modern::Perl
