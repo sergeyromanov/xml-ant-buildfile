@@ -1,4 +1,17 @@
+#
+# This file is part of XML-Ant-BuildFile
+#
+# This software is copyright (c) 2011 by GSI Commerce.  No
+# license is granted to other entities.
+#
+use utf8;
+use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
+
 package XML::Ant::BuildFile::Role::HasProjects;
+
+BEGIN {
+    $XML::Ant::BuildFile::Role::HasProjects::VERSION = '0.141';
+}
 
 # ABSTRACT: Compose a collection of Ant build file projects
 
@@ -17,24 +30,10 @@ use TryCatch;
 use XML::Ant::BuildFile::Project;
 use namespace::autoclean;
 
-=attr working_copy
-
-A L<Path::Class::Dir|Path::Class::Dir> to search for L</projects>.
-
-=cut
-
 has working_copy => ( rw, required, coerce,
     isa           => Dir,
     documentation => 'directory containing content',
 );
-
-=attr projects
-
-Reference to an array of
-L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>s in the
-current C<working_copy> directory.
-
-=cut
 
 has projects => ( rw,
     lazy_build,
@@ -83,6 +82,22 @@ sub _make_ant_finder_callback {
 
 1;
 
+__END__
+
+=pod
+
+=for :stopwords Mark Gardner GSI Commerce
+
+=encoding utf8
+
+=head1 NAME
+
+XML::Ant::BuildFile::Role::HasProjects - Compose a collection of Ant build file projects
+
+=head1 VERSION
+
+version 0.141
+
 =head1 SYNOPSIS
 
     package My::Package;
@@ -104,3 +119,35 @@ This L<Moose::Role|Moose::Role> helps you compose a collection of Ant
 project files found in a directory of source code.  The directory is searched
 recursively for files ending in F<.xml>, skipping any symbolic links as well
 as F<CVS> and Subversion F<.svn> directories.
+
+=head1 ATTRIBUTES
+
+=head2 working_copy
+
+A L<Path::Class::Dir|Path::Class::Dir> to search for L</projects>.
+
+=head2 projects
+
+Reference to an array of
+L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>s in the
+current C<working_copy> directory.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://github.com/mjgardner/XML-Ant-BuildFile/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Mark Gardner <mjgardner@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by GSI Commerce.  No
+license is granted to other entities.
+
+=cut

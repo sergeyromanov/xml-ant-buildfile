@@ -1,4 +1,17 @@
+#
+# This file is part of XML-Ant-BuildFile
+#
+# This software is copyright (c) 2011 by GSI Commerce.  No
+# license is granted to other entities.
+#
+use utf8;
+use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
+
 package XML::Ant::BuildFile::Project::FileList;
+
+BEGIN {
+    $XML::Ant::BuildFile::Project::FileList::VERSION = '0.141';
+}
 
 # ABSTRACT: file list node within an Ant build file
 
@@ -14,17 +27,6 @@ use MooseX::Types::Path::Class qw(Dir File);
 use namespace::autoclean;
 with 'XML::Rabbit::Node';
 
-=attr project
-
-Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
-at the root of the build file containing this file list.
-
-=method properties
-
-Properties hash reference for the build file.
-
-=cut
-
 has project => (
     isa         => 'XML::Ant::BuildFile::Project',
     traits      => ['XPathObject'],
@@ -34,12 +36,6 @@ has project => (
 
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
-
-=attr id
-
-C<id> attribute of this file list.
-
-=cut
 
     my %xpath_attr = ( _dir_attr => './@dir', id => './@id' );
     while ( my ( $attr, $xpath ) = each %xpath_attr ) {
@@ -54,25 +50,11 @@ C<id> attribute of this file list.
     );
 }
 
-=attr directory
-
-L<Path::Class::Dir|Path::Class::Dir> indicated by the C<< <filelist> >>
-element's C<dir> attribute with all property substitutions applied.
-
-=cut
-
 has directory => ( ro, lazy,
     isa      => Dir,
     init_arg => undef,
     default  => sub { dir( $ARG[0]->_property_subst( $ARG[0]->_dir_attr ) ) },
 );
-
-=attr files
-
-Reference to an array of L<Path::Class::File|Path::Class::File>s within
-this file list with all property substitutions applied.
-
-=cut
 
 has files => ( ro, lazy,
     isa => ArrayRef [File],
@@ -96,8 +78,69 @@ sub _property_subst {
 __PACKAGE__->meta->make_immutable();
 1;
 
-__END__
+=pod
+
+=for :stopwords Mark Gardner GSI Commerce
+
+=encoding utf8
+
+=head1 NAME
+
+XML::Ant::BuildFile::Project::FileList - file list node within an Ant build file
+
+=head1 VERSION
+
+version 0.141
 
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
+
+=head1 ATTRIBUTES
+
+=head2 project
+
+Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
+at the root of the build file containing this file list.
+
+=head2 id
+
+C<id> attribute of this file list.
+
+=head2 directory
+
+L<Path::Class::Dir|Path::Class::Dir> indicated by the C<< <filelist> >>
+element's C<dir> attribute with all property substitutions applied.
+
+=head2 files
+
+Reference to an array of L<Path::Class::File|Path::Class::File>s within
+this file list with all property substitutions applied.
+
+=head1 METHODS
+
+=head2 properties
+
+Properties hash reference for the build file.
+
+=head1 BUGS
+
+Please report any bugs or feature requests on the bugtracker website
+http://github.com/mjgardner/XML-Ant-BuildFile/issues
+
+When submitting a bug or request, please include a test-file or a
+patch to an existing test-file that illustrates the bug or desired
+feature.
+
+=head1 AUTHOR
+
+Mark Gardner <mjgardner@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by GSI Commerce.  No
+license is granted to other entities.
+
+=cut
+
+__END__
