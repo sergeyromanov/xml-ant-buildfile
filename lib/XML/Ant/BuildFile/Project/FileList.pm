@@ -41,8 +41,11 @@ has project => (
 
     my %xpath_attr = ( _dir_attr => './@dir', id => './@id' );
     while ( my ( $attr, $xpath ) = each %xpath_attr ) {
-        has $attr =>
-            ( isa => Str, traits => ['XPathValue'], xpath_query => $xpath );
+        has $attr => ( ro, required,
+            isa         => Str,
+            traits      => ['XPathValue'],
+            xpath_query => $xpath,
+        );
     }
 
     has _file_names => (
@@ -52,7 +55,7 @@ has project => (
     );
 }
 
-has directory => ( ro, lazy,
+has directory => ( ro, required, lazy,
     isa      => Dir,
     init_arg => undef,
     default  => sub { dir( $ARG[0]->_property_subst( $ARG[0]->_dir_attr ) ) },

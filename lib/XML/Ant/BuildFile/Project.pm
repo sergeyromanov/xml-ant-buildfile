@@ -52,10 +52,9 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
     );
 
     has filelists => (
-        isa         => 'HashRef[XML::Ant::BuildFile::Project::FileList]',
-        traits      => ['XPathObjectMap'],
-        xpath_query => '/project/filelist[@id]',
-        xpath_key   => './@id',
+        isa         => 'ArrayRef[XML::Ant::BuildFile::Project::FileList]',
+        traits      => ['XPathObjectList'],
+        xpath_query => '//filelist[@id]',
     );
 
     has targets => (

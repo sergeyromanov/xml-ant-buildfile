@@ -10,7 +10,8 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-use Test::More tests => 4;
+use Test::More tests => 7;
+use English '-no_match_vars';
 use Readonly;
 use Path::Class;
 use XML::Ant::BuildFile::Project;
@@ -32,3 +33,19 @@ $project = new_ok(
 
 is( $project->name, 'test', 'project name' );
 cmp_ok( $project->targets, '~~', [qw(simple double nested)], 'target names' );
+
+my @filelists = @{ $project->filelists };
+is( scalar @filelists, 3, 'filelists' );
+
+cmp_ok(
+    [ map { $ARG->id } @filelists ],
+    '~~', [ ('filelist') x 3 ],
+    'filelist ids',
+);
+
+cmp_ok(
+    [ map { $ARG->directory->stringify() } @filelists ],
+    '~~',
+    [ (q{.}) x 3 ],
+    'filelist dirs',
+);
