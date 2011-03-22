@@ -69,7 +69,8 @@ has directory => ( ro, required, lazy,
 
 has files => ( ro, lazy_build, isa => ArrayRef [File], init_arg => undef );
 
-sub _build_files {
+sub _build_files
+{    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self = shift;
     my @file_names;
 
