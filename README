@@ -30,8 +30,7 @@ ATTRIBUTES
     Name of the Ant project.
 
   filelists
-    Hash reference of XML::Ant::BuildFile::Project::FileLists where the keys
-    are the "id" values from the "<filelist>" elements.
+    Array reference of XML::Ant::BuildFile::Project::FileLists.
 
   targets
     Array reference of target names from the build file.
