@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project::FileList;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::FileList::VERSION = '0.200';
+    $XML::Ant::BuildFile::Project::FileList::VERSION = '0.141';
 }
 
 # ABSTRACT: file list node within an Ant build file
@@ -78,7 +78,7 @@ sub _build_files
         push @file_names, @{ $self->_file_names };
     }
     if ( defined $self->_files_attr_names ) {
-        push @file_names, split /[,\s]*/, $self->_files_attr_names;
+        push @file_names, split / [,\s]* /, $self->_files_attr_names;
     }
 
     return [ map { $self->directory->file( $self->_property_subst($ARG) ) }
@@ -109,11 +109,23 @@ XML::Ant::BuildFile::Project::FileList - file list node within an Ant build file
 
 =head1 VERSION
 
-version 0.200
+version 0.141
 
 =head1 SYNOPSIS
 
+    use XML::Ant::BuildFile::Project;
+
+    my $project = XML::Ant::BuildFile::Project->new( file => 'build.xml' );
+    for my $list_ref (@{$project->file_lists}) {
+        print 'id: ', $list_ref->id, "\n";
+        print join "\n", @{$list_ref->files};
+        print "\n\n";
+    }
+
 =head1 DESCRIPTION
+
+See L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project> for a complete
+description.
 
 =head1 ATTRIBUTES
 
