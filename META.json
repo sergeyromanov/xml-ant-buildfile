@@ -35,7 +35,7 @@
             "Readonly" : 0,
             "Regexp::DefaultFlags" : 0,
             "TryCatch" : 0,
-            "XML::Rabbit::Node" : 0,
+            "XML::Rabbit::Node" : "v0.0.4",
             "XML::Rabbit::RootNode" : 0,
             "namespace::autoclean" : 0,
             "perl" : "5.010",
@@ -62,6 +62,6 @@
          "web" : "http://github.com/mjgardner/XML-Ant-BuildFile/issues"
       }
    },
-   "version" : "0.201"
+   "version" : "0.202"
 }
 

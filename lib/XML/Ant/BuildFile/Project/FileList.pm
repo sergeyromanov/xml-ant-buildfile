@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project::FileList;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::FileList::VERSION = '0.201';
+    $XML::Ant::BuildFile::Project::FileList::VERSION = '0.202';
 }
 
 # ABSTRACT: file list node within an Ant build file
@@ -27,7 +27,7 @@ use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
 use namespace::autoclean;
-with 'XML::Rabbit::Node';
+with 'XML::Rabbit::Node' => { -version => '0.0.4' };
 
 has project => (
     isa         => 'XML::Ant::BuildFile::Project',
@@ -109,7 +109,7 @@ XML::Ant::BuildFile::Project::FileList - file list node within an Ant build file
 
 =head1 VERSION
 
-version 0.201
+version 0.202
 
 =head1 SYNOPSIS
 
