@@ -1,18 +1,7 @@
-#
-# This file is part of XML-Ant-BuildFile
-#
-# This software is copyright (c) 2011 by GSI Commerce.
-#
-# This is free software; you can redistribute it and/or modify it under
-# the same terms as the Perl 5 programming language system itself.
-#
-use utf8;
-use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
-
 package XML::Ant::BuildFile::Project;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::VERSION = '0.200';
+    $XML::Ant::BuildFile::Project::VERSION = '0.201';
 }
 
 # ABSTRACT: consume Ant build files
@@ -93,7 +82,7 @@ XML::Ant::BuildFile::Project - consume Ant build files
 
 =head1 VERSION
 
-version 0.200
+version 0.201
 
 =head1 SYNOPSIS
 

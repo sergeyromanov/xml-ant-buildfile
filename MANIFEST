@@ -29,6 +29,5 @@ t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/release-portability.t
 t/release-synopsis.t
-t/requires_external.t
 weaver.ini
 xt/author/perltidy.rc
