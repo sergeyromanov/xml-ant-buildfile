@@ -41,6 +41,7 @@ my %WriteMakefileArgs = (
     'Readonly' => '0',
     'Regexp::DefaultFlags' => '0',
     'TryCatch' => '0',
+    'XML::Rabbit' => '0.0.4',
     'XML::Rabbit::Node' => '0.0.4',
     'XML::Rabbit::RootNode' => '0',
     'namespace::autoclean' => '0',
