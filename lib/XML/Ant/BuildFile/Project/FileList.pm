@@ -90,8 +90,6 @@ __PACKAGE__->meta->make_immutable();
 
 =for :stopwords Mark Gardner GSI Commerce
 
-=encoding utf8
-
 =head1 NAME
 
 XML::Ant::BuildFile::Project::FileList - file list node within an Ant build file

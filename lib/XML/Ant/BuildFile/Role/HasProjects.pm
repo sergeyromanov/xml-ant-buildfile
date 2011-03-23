@@ -79,8 +79,6 @@ __END__
 
 =for :stopwords Mark Gardner GSI Commerce
 
-=encoding utf8
-
 =head1 NAME
 
 XML::Ant::BuildFile::Role::HasProjects - Compose a collection of Ant build file projects
