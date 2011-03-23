@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-
+BEGIN { require 5.010; }
 
 use ExtUtils::MakeMaker 6.31;
 
@@ -29,6 +29,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'Carp' => '0',
     'English' => '0',
+    'Modern::Perl' => '0',
     'Moose' => '0',
     'Moose::Role' => '0',
     'Moose::Util::TypeConstraints' => '0',
@@ -42,7 +43,8 @@ my %WriteMakefileArgs = (
     'TryCatch' => '0',
     'XML::Rabbit::Node' => '0',
     'XML::Rabbit::RootNode' => '0',
-    'namespace::autoclean' => '0'
+    'namespace::autoclean' => '0',
+    'utf8' => '0'
   },
   'VERSION' => '0.201',
   'test' => {

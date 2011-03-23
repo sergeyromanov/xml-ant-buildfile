@@ -23,6 +23,7 @@
          "requires" : {
             "Carp" : 0,
             "English" : 0,
+            "Modern::Perl" : 0,
             "Moose" : 0,
             "Moose::Role" : 0,
             "Moose::Util::TypeConstraints" : 0,
@@ -36,7 +37,9 @@
             "TryCatch" : 0,
             "XML::Rabbit::Node" : 0,
             "XML::Rabbit::RootNode" : 0,
-            "namespace::autoclean" : 0
+            "namespace::autoclean" : 0,
+            "perl" : "5.010",
+            "utf8" : 0
          }
       },
       "test" : {
