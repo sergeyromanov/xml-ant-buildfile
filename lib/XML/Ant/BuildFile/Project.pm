@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::VERSION = '0.203';
+    $XML::Ant::BuildFile::Project::VERSION = '0.204';
 }
 
 # ABSTRACT: consume Ant build files
@@ -59,9 +59,15 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
 
     has targets => (
         isa         => 'HashRef[XML::Ant::BuildFile::Project::Target]',
-        traits      => ['XPathObjectMap'],
+        traits      => [qw(XPathObjectMap Hash)],
         xpath_query => '/project/target[@name]',
         xpath_key   => './@name',
+        handles     => {
+            target_names => 'keys',
+            get_target   => 'get',
+            has_target   => 'exists',
+            num_targets  => 'count',
+        },
     );
 }
 
@@ -94,7 +100,7 @@ XML::Ant::BuildFile::Project - consume Ant build files
 
 =head1 VERSION
 
-version 0.203
+version 0.204
 
 =head1 SYNOPSIS
 
