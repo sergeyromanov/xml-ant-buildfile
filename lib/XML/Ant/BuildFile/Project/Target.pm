@@ -48,12 +48,12 @@ has project => (
 
 has dependencies => ( ro, lazy_build, isa => ArrayRef [__PACKAGE__] );
 
-sub _build_dependencies {
+sub _build_dependencies {    ## no critic (ProhibitUnusedPrivateSubroutines)
     my $self = shift;
-    return undef if not $self->_has_depends or not $self->_depends;
+    return if not $self->_has_depends or not $self->_depends;
 
     return [
-        map { $self->project->get_target($ARG) } split q{,},
+        map { $self->project->get_target($ARG) } split /,/,
         $self->_depends,
     ];
 }
