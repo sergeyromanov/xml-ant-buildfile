@@ -33,7 +33,8 @@ ATTRIBUTES
     Array reference of XML::Ant::BuildFile::Project::FileLists.
 
   targets
-    Array reference of target XML::Rabbit::Nodes from the build file.
+    Hash reference of XML::Ant::BuildFile::Project::Targets from the build
+    file.
 
   properties
     Read-only hash reference to properties set by the build file. This also
@@ -44,6 +45,20 @@ ATTRIBUTES
     basedir
     ant.file
     ant.project.name
+
+METHODS
+  target_names
+    Returns a list of the target names from the build file.
+
+  get_target
+    Given a target name, return the corresponding
+    XML::Ant::BuildFile::Project::Target object.
+
+  has_target
+    Given a target name, returns true or false if the target exists.
+
+  num_targets
+    Returns a count of the number of targets in the build file.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website

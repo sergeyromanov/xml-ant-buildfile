@@ -103,6 +103,12 @@ at the root of the build file containing this target.
 
 Name of the target.
 
+=head2
+
+If the target has any dependencies, this will return them as an array reference
+of L<XML::Ant::BuildFile::Project::Target|XML::Ant::BuildFile::Project::Target>
+objects.
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
