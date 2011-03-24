@@ -34,7 +34,7 @@ ATTRIBUTES
 
   targets
     Hash reference of XML::Ant::BuildFile::Project::Targets from the build
-    file.
+    file. The keys are the target names.
 
   properties
     Read-only hash reference to properties set by the build file. This also
