@@ -22,8 +22,11 @@ use MooseX::Types::Moose 'Str';
 use namespace::autoclean;
 with 'XML::Rabbit::Node' => { -version => '0.0.4' };
 
-has name =>
-    ( isa => Str, traits => ['XPathValue'], xpath_query => './@name' );
+has name => (
+    isa    => Str,
+    traits => ['XPathValue'],
+    xpath_query => './@name',   ## no critic (RequireInterpolationOfMetachars)
+);
 
 __PACKAGE__->meta->make_immutable();
 1;
