@@ -35,7 +35,7 @@ is( $project->name, 'test', 'project name' );
 cmp_bag(
     [ keys %{ $project->targets } ],
     [qw(simple double nested)],
-    'target names'
+    'target names',
 );
 
 my @filelists = @{ $project->filelists };
