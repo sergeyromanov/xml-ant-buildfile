@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::VERSION = '0.204';
+    $XML::Ant::BuildFile::Project::VERSION = '0.205';
 }
 
 # ABSTRACT: consume Ant build files
@@ -67,6 +67,7 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
             get_target   => 'get',
             has_target   => 'exists',
             num_targets  => 'count',
+            all_targets  => 'values',
         },
     );
 }
@@ -100,7 +101,7 @@ XML::Ant::BuildFile::Project - consume Ant build files
 
 =head1 VERSION
 
-version 0.204
+version 0.205
 
 =head1 SYNOPSIS
 
@@ -161,6 +162,12 @@ contains the following predefined properties as per the Ant documentation:
 =back
 
 =head1 METHODS
+
+=head2 all_targets
+
+Returns a list of all targets as
+L<XML::Ant::BuildFile::Project::Target|XML::Ant::BuildFile::Project::Target>
+objects.
 
 =head2 target_names
 

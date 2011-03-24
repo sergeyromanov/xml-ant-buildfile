@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project::Target;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::Target::VERSION = '0.204';
+    $XML::Ant::BuildFile::Project::Target::VERSION = '0.205';
 }
 
 # ABSTRACT: target node within an Ant build file
@@ -76,7 +76,7 @@ XML::Ant::BuildFile::Project::Target - target node within an Ant build file
 
 =head1 VERSION
 
-version 0.204
+version 0.205
 
 =head1 SYNOPSIS
 

@@ -2,7 +2,7 @@ NAME
     XML::Ant::BuildFile::Project - consume Ant build files
 
 VERSION
-    version 0.204
+    version 0.205
 
 SYNOPSIS
         use XML::Ant::BuildFile::Project;
@@ -47,6 +47,10 @@ ATTRIBUTES
     ant.project.name
 
 METHODS
+  all_targets
+    Returns a list of all targets as XML::Ant::BuildFile::Project::Target
+    objects.
+
   target_names
     Returns a list of the target names from the build file.
 
