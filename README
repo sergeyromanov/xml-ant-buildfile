@@ -2,7 +2,7 @@ NAME
     XML::Ant::BuildFile::Project - consume Ant build files
 
 VERSION
-    version 0.202
+    version 0.203
 
 SYNOPSIS
         use XML::Ant::BuildFile::Project;
@@ -33,7 +33,7 @@ ATTRIBUTES
     Array reference of XML::Ant::BuildFile::Project::FileLists.
 
   targets
-    Array reference of target names from the build file.
+    Array reference of target XML::Rabbit::Nodes from the build file.
 
   properties
     Read-only hash reference to properties set by the build file. This also

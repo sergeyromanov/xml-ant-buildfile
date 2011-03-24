@@ -9,6 +9,7 @@ README
 dist.ini
 lib/XML/Ant/BuildFile/Project.pm
 lib/XML/Ant/BuildFile/Project/FileList.pm
+lib/XML/Ant/BuildFile/Project/Target.pm
 lib/XML/Ant/BuildFile/Role/HasProjects.pm
 perlcritic.rc
 t/00-compile.t
