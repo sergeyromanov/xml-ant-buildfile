@@ -29,9 +29,6 @@ ATTRIBUTES
   name
     Name of the Ant project.
 
-  filelists
-    Array of XML::Ant::BuildFile::FileLists.
-
   targets
     Hash of XML::Ant::BuildFile::Targets from the build file. The keys are
     the target names.
@@ -47,6 +44,29 @@ ATTRIBUTES
     ant.project.name
 
 METHODS
+  filelists
+    Returns an array of all filelists in the project.
+
+  filelist
+    Given an index number returns that "filelist" from the project. You can
+    also use negative numbers to count from the end. Returns "undef" if the
+    specified "filelist" does not exist.
+
+  map_filelists
+    Given a code reference, transforms every "filelist" element into a new
+    array.
+
+  filter_filelists
+    Given a code reference, returns an array with every "filelist" element
+    for which that code returns "true".
+
+  find_filelist
+    Given a code reference, returns the first "filelist" for which the code
+    returns "true".
+
+  num_filelists
+    Returns a count of all "filelist"s in the project.
+
   target
     Given a list of target names, return the corresponding
     XML::Ant::BuildFile::Target objects. In scalar context return only the
@@ -63,6 +83,9 @@ METHODS
 
   num_targets
     Returns a count of the number of targets in the build file.
+
+  property
+    Returns the value for one or more given property names.
 
   apply_properties
     Takes a string and applies property substitution to it.

@@ -60,10 +60,10 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
         xpath_query => '//filelist[@id]',
         handles     => {
             filelists        => 'elements',
+            filelist         => 'get',
             map_filelists    => 'map',
             filter_filelists => 'grep',
             find_filelist    => 'first',
-            filelist         => 'get',
             num_filelists    => 'count',
         },
     );
@@ -75,16 +75,22 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
         xpath_query => '/project/target[@name]',
         xpath_key   => './@name',
         handles     => {
-            target_names => 'keys',
             target       => 'get',
+            all_targets  => 'values',
+            target_names => 'keys',
             has_target   => 'exists',
             num_targets  => 'count',
-            all_targets  => 'values',
         },
     );
 }
 
-has properties => ( is => ro, isa => HashRef [Str], default => sub { {} } );
+has properties => (
+    is      => ro,
+    isa     => HashRef [Str],
+    traits  => ['Hash'],
+    default => sub { {} },
+    handles => { property => 'get' },
+);
 
 around properties => sub {
     my ( $orig, $self ) = @ARG;
@@ -157,10 +163,6 @@ by L<XML::Rabbit::Role::Document|XML::Rabbit::Role::Document>.
 
 Name of the Ant project.
 
-=head2 filelists
-
-Array of L<XML::Ant::BuildFile::FileList|XML::Ant::BuildFile::FileList>s.
-
 =head2 targets
 
 Hash of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>s
@@ -185,6 +187,36 @@ contains the following predefined properties as per the Ant documentation:
 
 =head1 METHODS
 
+=head2 filelists
+
+Returns an array of all L<filelist|XML::Ant::BuildFile::FileList>s in the
+project.
+
+=head2 filelist
+
+Given an index number returns that C<filelist> from the project.
+You can also use negative numbers to count from the end.
+Returns C<undef> if the specified C<filelist> does not exist.
+
+=head2 map_filelists
+
+Given a code reference, transforms every C<filelist> element into a new
+array.
+
+=head2 filter_filelists
+
+Given a code reference, returns an array with every C<filelist> element
+for which that code returns C<true>.
+
+=head2 find_filelist
+
+Given a code reference, returns the first C<filelist> for which the code
+returns C<true>.
+
+=head2 num_filelists
+
+Returns a count of all C<filelist>s in the project.
+
 =head2 target
 
 Given a list of target names, return the corresponding
@@ -208,6 +240,10 @@ Given a target name, returns true or false if the target exists.
 =head2 num_targets
 
 Returns a count of the number of targets in the build file.
+
+=head2 property
+
+Returns the value for one or more given property names.
 
 =head2 apply_properties
 
