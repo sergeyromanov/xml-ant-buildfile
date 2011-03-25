@@ -64,7 +64,9 @@ has project => (
 has directory => ( ro, required, lazy,
     isa      => Dir,
     init_arg => undef,
-    default  => sub { dir( $ARG[0]->_property_subst( $ARG[0]->_dir_attr ) ) },
+    default  => sub {
+        dir( $ARG[0]->project->apply_properties( $ARG[0]->_dir_attr ) );
+    },
 );
 
 has files => ( ro, lazy_build, isa => ArrayRef [File], init_arg => undef );
@@ -81,17 +83,11 @@ sub _build_files
         push @file_names, split / [,\s]* /, $self->_files_attr_names;
     }
 
-    return [ map { $self->directory->file( $self->_property_subst($ARG) ) }
-            @file_names ];
-}
-
-sub _property_subst {
-    my ( $self, $source ) = @ARG;
-    my %properties = %{ $self->properties };
-    while ( my ( $property, $value ) = each %properties ) {
-        $source =~ s/ \$ {$property} /$value/g;
-    }
-    return $source;
+    return [
+        map {
+            $self->directory->file( $self->project->apply_properties($ARG) )
+            } @file_names
+    ];
 }
 
 __PACKAGE__->meta->make_immutable();

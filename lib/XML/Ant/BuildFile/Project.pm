@@ -86,6 +86,15 @@ around properties => sub {
     };
 };
 
+sub apply_properties {
+    my ( $self, $source ) = @ARG;
+    my %properties = %{ $self->properties };
+    while ( my ( $property, $value ) = each %properties ) {
+        $source =~ s/ \$ {$property} /$value/g;
+    }
+    return $source;
+}
+
 __PACKAGE__->meta->make_immutable();
 1;
 
@@ -175,9 +184,9 @@ Returns a list of the target names from the build file.
 
 =head2 get_target
 
-Given a target name, return the corresponding
+Given a list of target names, return the corresponding
 L<XML::Ant::BuildFile::Project::Target|XML::Ant::BuildFile::Project::Target>
-object.
+objects.  In scalar context return only the last target specified.
 
 =head2 has_target
 
@@ -186,6 +195,10 @@ Given a target name, returns true or false if the target exists.
 =head2 num_targets
 
 Returns a count of the number of targets in the build file.
+
+=head2 apply_properties
+
+Takes a string and applies L<property|/properties> substitution to it.
 
 =head1 BUGS
 

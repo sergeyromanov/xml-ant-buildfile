@@ -55,14 +55,18 @@ METHODS
     Returns a list of the target names from the build file.
 
   get_target
-    Given a target name, return the corresponding
-    XML::Ant::BuildFile::Project::Target object.
+    Given a list of target names, return the corresponding
+    XML::Ant::BuildFile::Project::Target objects. In scalar context return
+    only the last target specified.
 
   has_target
     Given a target name, returns true or false if the target exists.
 
   num_targets
     Returns a count of the number of targets in the build file.
+
+  apply_properties
+    Takes a string and applies property substitution to it.
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
