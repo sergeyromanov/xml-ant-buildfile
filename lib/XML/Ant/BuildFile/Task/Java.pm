@@ -55,7 +55,7 @@ has _args_ref => ( ro,
     isa => ArrayRef [Str],
     traits      => [qw(XPathValueList Array)],
     xpath_query => './arg',
-    handles     => { _args => 'elements', _filter_args => 'map' },
+    handles     => { _all_args => 'elements', _filter_args => 'map' },
 );
 
 has _args => ( ro,
@@ -155,7 +155,7 @@ Returns a list of arguments transformed by the given code reference.
 
 =head2 filter_args
 
-Returns a list of arguments for which the given code reference returns C<true>. 
+Returns a list of arguments for which the given code reference returns C<true>.
 
 =head2 find_arg
 
