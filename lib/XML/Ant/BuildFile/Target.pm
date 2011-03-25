@@ -25,9 +25,7 @@ use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
-with
-    'XML::Rabbit::Node' => { -version => '0.0.4' },
-    'XML::Ant::BuildFile::Role::InProject';
+with 'XML::Ant::BuildFile::Role::InProject';
 
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)

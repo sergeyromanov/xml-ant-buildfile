@@ -65,8 +65,6 @@ L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
 Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
 at the root of the build file.
 
-=head1 METHODS
-
 =head2 properties
 
 Properties hash reference for the build file.

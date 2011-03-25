@@ -101,6 +101,12 @@ sub apply_properties {
     return $source;
 }
 
+has all_tasks => (
+    traits      => ['XPathObjectList'],
+    xpath_query => '//java',
+    isa_map     => { java => 'XML::Ant::BuildFile::Task::Java' },
+);
+
 __PACKAGE__->meta->make_immutable();
 1;
 

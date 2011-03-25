@@ -27,9 +27,7 @@ use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
 use namespace::autoclean;
-with
-    'XML::Rabbit::Node' => { -version => '0.0.4' },
-    'XML::Ant::BuildFile::Role::InProject';
+with 'XML::Ant::BuildFile::Role::InProject';
 
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
