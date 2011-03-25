@@ -19,6 +19,7 @@ t/000-report-versions.t
 t/author-critic.t
 t/filelist.t
 t/filelist.xml
+t/java.xml
 t/release-check-changes.t
 t/release-consistent-version.t
 t/release-dist-manifest.t

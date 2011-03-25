@@ -27,7 +27,7 @@ use Path::Class;
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Role::InProject';
 
-my %xpath_attr => (
+my %xpath_attr = (
     ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     classname  => './@classname',
     _jar       => './@jar',
@@ -35,24 +35,15 @@ my %xpath_attr => (
 );
 
 while ( my ( $attr, $xpath ) = each %xpath_attr ) {
-    has $attr => ( ro, required,
+    has $attr => ( ro,
         isa         => Str,
         traits      => ['XPathValue'],
         xpath_query => $xpath,
-        predicate   => "_has_$attr",
     );
 }
 
-sub BUILD {
-    my $self = shift;
-    croak 'Java tasks need either a classname or jar'
-        if not( $self->_has_classname or $self->has_jar );
-    return;
-}
-
 has jar => ( ro, lazy,
-    isa       => File,
-    predicate => 'has_jar',
+    isa => File,
     default =>
         sub { file( $ARG[0]->project->apply_properties( $ARG[0]->_jar ) ) },
 );
@@ -91,14 +82,6 @@ A string representing the Java class that's executed.
 =head2 jar
 
 A L<Path::Class::File|Path::Class::File> for the jar file being executed.
-
-=head1 METHODS
-
-=head2 BUILD
-
-L<Java tasks|XML::Ant::BuildFile::Task::Java> require either a
-L<classname|/classname> or L<jar|/jar>.  This method automatically runs after
-object creation and C<croak>s if this is not the case.
 
 =head1 BUGS
 

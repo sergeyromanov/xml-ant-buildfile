@@ -54,20 +54,26 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
         default     => sub { {} },
     );
 
-    has filelists => (
+    has _filelists => (
         isa         => 'ArrayRef[XML::Ant::BuildFile::FileList]',
-        traits      => ['XPathObjectList'],
+        traits      => [qw(XPathObjectList Array)],
         xpath_query => '//filelist[@id]',
+        handles     => {
+            filelists        => 'elements',
+            map_filelists    => 'map',
+            filter_filelists => 'grep',
+            num_filelists    => 'count',
+        },
     );
 
-    has targets => (
+    has targets => ( auto_deref,
         isa         => 'HashRef[XML::Ant::BuildFile::Target]',
         traits      => [qw(XPathObjectMap Hash)],
         xpath_query => '/project/target[@name]',
         xpath_key   => './@name',
         handles     => {
             target_names => 'keys',
-            get_target   => 'get',
+            target       => 'get',
             has_target   => 'exists',
             num_targets  => 'count',
             all_targets  => 'values',
@@ -100,12 +106,6 @@ sub apply_properties {
     }
     return $source;
 }
-
-has all_tasks => (
-    traits      => ['XPathObjectList'],
-    xpath_query => '//java',
-    isa_map     => { java => 'XML::Ant::BuildFile::Task::Java' },
-);
 
 __PACKAGE__->meta->make_immutable();
 1;
@@ -156,13 +156,11 @@ Name of the Ant project.
 
 =head2 filelists
 
-Array reference of
-L<XML::Ant::BuildFile::FileList|XML::Ant::BuildFile::FileList>s.
+Array of L<XML::Ant::BuildFile::FileList|XML::Ant::BuildFile::FileList>s.
 
 =head2 targets
 
-Hash reference of
-L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>s
+Hash of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>s
 from the build file.  The keys are the target names.
 
 =head2 properties
@@ -194,7 +192,7 @@ objects.
 
 Returns a list of the target names from the build file.
 
-=head2 get_target
+=head2 target
 
 Given a list of target names, return the corresponding
 L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>

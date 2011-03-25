@@ -49,11 +49,20 @@ sub _build_dependencies {    ## no critic (ProhibitUnusedPrivateSubroutines)
     my $self = shift;
     return if not $self->_has_depends or not $self->_depends;
 
-    return [
-        map { $self->project->get_target($ARG) } split /,/,
-        $self->_depends,
-    ];
+    return [ map { $self->project->target($ARG) } split /,/,
+        $self->_depends, ];
 }
+
+has _tasks => (
+    traits      => [qw(XPathObjectList Array)],
+    xpath_query => './/java',
+    isa_map     => { java => 'XML::Ant::BuildFile::Task::Java' },
+    handles     => {
+        num_tasks => 'count',
+        tasks     => 'elements',
+        task      => 'get',
+    },
+);
 
 __PACKAGE__->meta->make_immutable();
 1;
