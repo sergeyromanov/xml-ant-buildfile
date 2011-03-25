@@ -86,14 +86,18 @@ L<build file project|XML::Ant::BuildFile::Project>.
 =head2 classname
 
 A string representing the Java class that's executed.
-L<Java tasks|XML::Ant::BuildFile::Task::Java> require either a
-L<classname|/classname> or L<jar|/jar>.
 
 =head2 jar
 
 A L<Path::Class::File|Path::Class::File> for the jar file being executed.
+
+=head1 METHODS
+
+=head2 BUILD
+
 L<Java tasks|XML::Ant::BuildFile::Task::Java> require either a
-L<classname|/classname> or L<jar|/jar>.
+L<classname|/classname> or L<jar|/jar>.  This method automatically runs after
+object creation and C<croak>s if this is not the case.
 
 =head1 BUGS
 
