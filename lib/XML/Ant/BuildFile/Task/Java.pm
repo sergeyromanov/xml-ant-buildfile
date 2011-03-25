@@ -28,6 +28,7 @@ use namespace::autoclean;
 with 'XML::Ant::BuildFile::Role::InProject';
 
 my %xpath_attr => (
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     classname  => './@classname',
     _jar       => './@jar',
     _args_attr => './@args',
