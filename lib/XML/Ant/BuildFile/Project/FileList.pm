@@ -73,7 +73,8 @@ has files => ( ro, lazy_build, isa => ArrayRef [File], init_arg => undef );
 
 sub _build_files
 {    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
-    my $self = shift;
+    my $self    = shift;
+    my $project = $self->project;
     my @file_names;
 
     if ( defined $self->_file_names ) {
@@ -84,10 +85,8 @@ sub _build_files
     }
 
     return [
-        map {
-            $self->directory->file( $self->project->apply_properties($ARG) )
-            } @file_names
-    ];
+        map { $self->directory->file( $project->apply_properties($ARG) ) }
+            @file_names ];
 }
 
 __PACKAGE__->meta->make_immutable();
