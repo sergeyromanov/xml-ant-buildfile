@@ -17,6 +17,7 @@ BEGIN {
 
 # ABSTRACT: role for nodes in an Ant project
 
+use strict;
 use Moose::Role;
 use namespace::autoclean;
 with 'XML::Rabbit::Node' => { -version => '0.0.4' };
@@ -62,7 +63,7 @@ L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
 =head2 project
 
 Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
-at the root of the build file containing this target.
+at the root of the build file.
 
 =head1 METHODS
 
