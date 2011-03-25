@@ -62,6 +62,8 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
             filelists        => 'elements',
             map_filelists    => 'map',
             filter_filelists => 'grep',
+            find_filelist    => 'first',
+            filelist         => 'get',
             num_filelists    => 'count',
         },
     );

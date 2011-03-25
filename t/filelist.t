@@ -38,8 +38,7 @@ cmp_bag(
     'target names',
 );
 
-my @filelists = @{ $project->filelists };
-is( $project->num_filelists, 3, 'filelists' );
+is( $project->num_filelists(), 3, 'filelists' );
 
 cmp_deeply(
     [ $project->map_filelists( sub { $ARG->id } ) ],
@@ -55,7 +54,7 @@ cmp_deeply(
 
 cmp_deeply(
     [   map { $ARG->stringify() }
-            $project->map_filelists( sub { @{ $ARG->files } } )
+            $project->map_filelists( sub { $ARG->files } )
     ],
     [ map {"./$ARG"} qw(a a b a b) ],
     'files'

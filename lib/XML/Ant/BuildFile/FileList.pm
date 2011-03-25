@@ -62,9 +62,22 @@ has directory => ( ro, required, lazy,
     },
 );
 
-has files => ( ro, lazy_build, isa => ArrayRef [File], init_arg => undef );
+has _files => ( ro,
+    lazy_build,
+    isa => ArrayRef [File],
+    traits   => ['Array'],
+    init_arg => undef,
+    handles  => {
+        files        => 'elements',
+        map_files    => 'map',
+        filter_files => 'grep',
+        find_file    => 'first',
+        file         => 'get',
+        num_files    => 'count',
+    },
+);
 
-sub _build_files
+sub _build__files
 {    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self    = shift;
     my $project = $self->project;
