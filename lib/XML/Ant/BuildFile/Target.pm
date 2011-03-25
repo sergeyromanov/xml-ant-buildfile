@@ -49,9 +49,8 @@ has dependencies => ( ro, lazy_build, isa => ArrayRef [__PACKAGE__] );
 sub _build_dependencies {    ## no critic (ProhibitUnusedPrivateSubroutines)
     my $self = shift;
     return if not $self->_has_depends or not $self->_depends;
-
     return [ map { $self->project->target($ARG) } split /,/,
-        $self->_depends, ];
+        $self->_depends ];
 }
 
 has _tasks => (
@@ -68,7 +67,7 @@ has _tasks => (
 
 sub tasks {
     my ( $self, @names ) = @ARG;
-    return $self->filter_tasks( sub { $ARG->node->nodeName ~~ @names } );
+    return $self->filter_tasks( sub { $ARG->task_name ~~ @names } );
 }
 
 __PACKAGE__->meta->make_immutable();

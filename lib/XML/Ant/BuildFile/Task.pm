@@ -9,46 +9,28 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Task::Java;
+package XML::Ant::BuildFile::Task;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Java::VERSION = '0.205';
+    $XML::Ant::BuildFile::Task::VERSION = '0.205';
 }
 
-# ABSTRACT: Java task node in an Ant build file
+# ABSTRACT: Role for Ant build file tasks
 
-use Carp;
+use strict;
 use English '-no_match_vars';
-use Moose;
+use Moose::Role;
 use MooseX::Has::Sugar;
 use MooseX::Types::Moose 'Str';
-use MooseX::Types::Path::Class 'File';
-use Path::Class;
 use namespace::autoclean;
-with 'XML::Ant::BuildFile::Task';
+with 'XML::Ant::BuildFile::Role::InProject';
 
-my %xpath_attr = (
-    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
-    classname  => './@classname',
-    _jar       => './@jar',
-    _args_attr => './@args',
+has task_name => ( ro,
+    isa      => Str,
+    init_arg => undef,
+    default  => sub { $ARG->node->nodeName },
 );
 
-while ( my ( $attr, $xpath ) = each %xpath_attr ) {
-    has $attr => ( ro,
-        isa         => Str,
-        traits      => ['XPathValue'],
-        xpath_query => $xpath,
-    );
-}
-
-has jar => ( ro, lazy,
-    isa => File,
-    default =>
-        sub { file( $ARG[0]->project->apply_properties( $ARG[0]->_jar ) ) },
-);
-
-__PACKAGE__->meta->make_immutable();
 1;
 
 =pod
@@ -59,7 +41,7 @@ __PACKAGE__->meta->make_immutable();
 
 =head1 NAME
 
-XML::Ant::BuildFile::Task::Java - Java task node in an Ant build file
+XML::Ant::BuildFile::Task - Role for Ant build file tasks
 
 =head1 VERSION
 
@@ -67,21 +49,25 @@ version 0.205
 
 =head1 SYNOPSIS
 
+    package XML::Ant::BuildFile::Task::Foo;
+    use Moose;
+    with 'XML::Ant::BuildFile::Task';
+    
+    after BUILD => sub {
+        my $self = shift;
+        print "I'm a ", $self->task_name, "\n";
+    };
+
 =head1 DESCRIPTION
 
-This is an incomplete class for
-L<Ant Java task|http://ant.apache.org/manual/Tasks/java.html>s in a
-L<build file project|XML::Ant::BuildFile::Project>.
+This is a role shared by tasks in an
+L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
 
 =head1 ATTRIBUTES
 
-=head2 classname
+=head2 task_name
 
-A string representing the Java class that's executed.
-
-=head2 jar
-
-A L<Path::Class::File|Path::Class::File> for the jar file being executed.
+Name of the task's XML node.
 
 =head1 BUGS
 

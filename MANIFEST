@@ -12,6 +12,7 @@ lib/XML/Ant/BuildFile/Project.pm
 lib/XML/Ant/BuildFile/Role/HasProjects.pm
 lib/XML/Ant/BuildFile/Role/InProject.pm
 lib/XML/Ant/BuildFile/Target.pm
+lib/XML/Ant/BuildFile/Task.pm
 lib/XML/Ant/BuildFile/Task/Java.pm
 perlcritic.rc
 t/00-compile.t
