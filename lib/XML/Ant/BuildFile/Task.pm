@@ -52,11 +52,13 @@ version 0.205
     package XML::Ant::BuildFile::Task::Foo;
     use Moose;
     with 'XML::Ant::BuildFile::Task';
-    
+
     after BUILD => sub {
         my $self = shift;
         print "I'm a ", $self->task_name, "\n";
     };
+
+    1;
 
 =head1 DESCRIPTION
 
