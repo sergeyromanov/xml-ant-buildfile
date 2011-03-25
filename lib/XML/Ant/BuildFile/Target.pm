@@ -56,6 +56,7 @@ sub _build_dependencies {    ## no critic (ProhibitUnusedPrivateSubroutines)
 sub BUILD {
     my $self = shift;
 
+    ## no critic (ValuesAndExpressions::ProhibitMagicNumbers)
     my %isa_map = map { lc( ( split /::/ => $ARG )[-1] ) => $ARG }
         $self->project->task_plugins;
     $self->meta->add_attribute(
@@ -79,7 +80,6 @@ sub tasks {
     return $self->filter_tasks( sub { $ARG->task_name ~~ @names } );
 }
 
-__PACKAGE__->meta->make_immutable();
 1;
 
 =pod

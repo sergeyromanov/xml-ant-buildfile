@@ -17,16 +17,7 @@ BEGIN {
 
 # ABSTRACT: copy task node in an Ant build file
 
-use Carp;
-use English '-no_match_vars';
 use Moose;
-use MooseX::Has::Sugar;
-use MooseX::Types::Moose qw(ArrayRef Str);
-use MooseX::Types::Path::Class 'File';
-use Path::Class;
-use Regexp::DefaultFlags;
-## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
-## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Task';
 
@@ -49,19 +40,7 @@ version 0.206
 
 =head1 SYNOPSIS
 
-    use XML::Ant::BuildFile::Project;
-    my $project = XML::Ant::BuildFile::Project->new( file => 'build.xml' );
-    my @foo_java = $project->target('foo')->tasks('java');
-    for my $java (@foo_java) {
-        print $java->classname || "$java->jar";
-        print "\n";
-    }
-
 =head1 DESCRIPTION
-
-This is an incomplete class for
-L<Ant Java task|http://ant.apache.org/manual/Tasks/java.html>s in a
-L<build file project|XML::Ant::BuildFile::Project>.
 
 =head1 BUGS
 

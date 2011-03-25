@@ -24,16 +24,14 @@ use MooseX::Has::Sugar::Minimal;
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class 'File';
 use Module::Pluggable (
-    search_path => ['XML::Ant::BuildFile::Task'],
     sub_name    => 'task_plugins',
-    require     => 1,
+    search_path => 'XML::Ant::BuildFile::Task'
 );
 use Path::Class;
 use Readonly;
 use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
-use namespace::autoclean;
 with 'XML::Rabbit::RootNode';
 
 subtype 'FileStr', as Str;
