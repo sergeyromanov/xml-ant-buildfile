@@ -24,6 +24,7 @@ use MooseX::Types::Moose qw(ArrayRef Str);
 use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
+use XML::Ant::BuildFile::Task::Java;
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Role::InProject';
 
@@ -58,11 +59,17 @@ has _tasks => (
     xpath_query => './/java',
     isa_map     => { java => 'XML::Ant::BuildFile::Task::Java' },
     handles     => {
-        num_tasks => 'count',
-        tasks     => 'elements',
-        task      => 'get',
+        all_tasks    => 'elements',
+        task         => 'get',
+        filter_tasks => 'grep',
+        num_tasks    => 'count',
     },
 );
+
+sub tasks {
+    my ( $self, @names ) = @ARG;
+    return $self->filter_tasks( sub { $ARG->node->nodeName ~~ @names } );
+}
 
 __PACKAGE__->meta->make_immutable();
 1;
@@ -106,6 +113,28 @@ Name of the target.
 If the target has any dependencies, this will return them as an array reference
 of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>
 objects.
+
+=head1 METHODS
+
+=head2 all_tasks
+
+Returns an array of task objects contained in this target.
+
+=head2 task
+
+Given an index number returns that task from the target.
+
+=head2 filter_tasks
+
+Returns all task objects for which the given code reference returns C<true>.
+
+=head2 num_tasks
+
+Returns a count of the number of tasks in this target.
+
+=head2 tasks
+
+Given one or more task names, returns a list of task objects.
 
 =head1 BUGS
 
