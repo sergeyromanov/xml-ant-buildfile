@@ -18,7 +18,8 @@ SYNOPSIS
 
 DESCRIPTION
     This class uses XML::Rabbit to consume Ant build files using a Moose
-    object-oriented interface.
+    object-oriented interface. It is a work in progress and in no way a
+    complete implementation of all Ant syntax.
 
 ATTRIBUTES
   file
