@@ -47,16 +47,16 @@ ATTRIBUTES
     ant.project.name
 
 METHODS
+  target
+    Given a list of target names, return the corresponding
+    XML::Ant::BuildFile::Target objects. In scalar context return only the
+    last target specified.
+
   all_targets
     Returns a list of all targets as XML::Ant::BuildFile::Target objects.
 
   target_names
     Returns a list of the target names from the build file.
-
-  target
-    Given a list of target names, return the corresponding
-    XML::Ant::BuildFile::Target objects. In scalar context return only the
-    last target specified.
 
   has_target
     Given a target name, returns true or false if the target exists.

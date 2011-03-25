@@ -66,7 +66,8 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
         },
     );
 
-    has targets => ( auto_deref,
+    has targets => (
+        auto_deref  => 1,
         isa         => 'HashRef[XML::Ant::BuildFile::Target]',
         traits      => [qw(XPathObjectMap Hash)],
         xpath_query => '/project/target[@name]',
@@ -182,6 +183,12 @@ contains the following predefined properties as per the Ant documentation:
 
 =head1 METHODS
 
+=head2 target
+
+Given a list of target names, return the corresponding
+L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>
+objects.  In scalar context return only the last target specified.
+
 =head2 all_targets
 
 Returns a list of all targets as
@@ -191,12 +198,6 @@ objects.
 =head2 target_names
 
 Returns a list of the target names from the build file.
-
-=head2 target
-
-Given a list of target names, return the corresponding
-L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>
-objects.  In scalar context return only the last target specified.
 
 =head2 has_target
 
