@@ -25,13 +25,9 @@ use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
-with 'XML::Rabbit::Node' => { -version => '0.0.4' };
-
-has project => (
-    isa         => 'XML::Ant::BuildFile::Project',
-    traits      => ['XPathObject'],
-    xpath_query => q{/},
-);
+with
+    'XML::Rabbit::Node' => { -version => '0.0.4' },
+    'XML::Ant::BuildFile::Role::InProject';
 
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
@@ -94,16 +90,11 @@ description.
 
 =head1 ATTRIBUTES
 
-=head2 project
-
-Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
-at the root of the build file containing this target.
-
 =head2 name
 
 Name of the target.
 
-=head2
+=head2 dependencies
 
 If the target has any dependencies, this will return them as an array reference
 of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>

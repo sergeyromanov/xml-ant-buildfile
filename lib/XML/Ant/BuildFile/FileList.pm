@@ -27,14 +27,9 @@ use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
 use namespace::autoclean;
-with 'XML::Rabbit::Node' => { -version => '0.0.4' };
-
-has project => (
-    isa         => 'XML::Ant::BuildFile::Project',
-    traits      => ['XPathObject'],
-    xpath_query => q{/},
-    handles     => ['properties'],
-);
+with
+    'XML::Rabbit::Node' => { -version => '0.0.4' },
+    'XML::Ant::BuildFile::Role::InProject';
 
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
@@ -124,11 +119,6 @@ description.
 
 =head1 ATTRIBUTES
 
-=head2 project
-
-Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
-at the root of the build file containing this file list.
-
 =head2 id
 
 C<id> attribute of this file list.
@@ -142,12 +132,6 @@ element's C<dir> attribute with all property substitutions applied.
 
 Reference to an array of L<Path::Class::File|Path::Class::File>s within
 this file list with all property substitutions applied.
-
-=head1 METHODS
-
-=head2 properties
-
-Properties hash reference for the build file.
 
 =head1 BUGS
 
