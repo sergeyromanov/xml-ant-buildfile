@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Project;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::VERSION = '0.205';
+    $XML::Ant::BuildFile::Project::VERSION = '0.206';
 }
 
 # ABSTRACT: consume Ant build files
@@ -23,6 +23,11 @@ use Moose::Util::TypeConstraints;
 use MooseX::Has::Sugar::Minimal;
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class 'File';
+use Module::Pluggable (
+    search_path => ['XML::Ant::BuildFile::Task'],
+    sub_name    => 'task_plugins',
+    require     => 1,
+);
 use Path::Class;
 use Readonly;
 use Regexp::DefaultFlags;
@@ -131,7 +136,7 @@ XML::Ant::BuildFile::Project - consume Ant build files
 
 =head1 VERSION
 
-version 0.205
+version 0.206
 
 =head1 SYNOPSIS
 

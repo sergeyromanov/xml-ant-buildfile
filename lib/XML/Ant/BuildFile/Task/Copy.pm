@@ -9,26 +9,28 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Role::InProject;
+package XML::Ant::BuildFile::Task::Copy;
 
 BEGIN {
-    $XML::Ant::BuildFile::Role::InProject::VERSION = '0.206';
+    $XML::Ant::BuildFile::Task::Copy::VERSION = '0.206';
 }
 
-# ABSTRACT: role for nodes in an Ant project
+# ABSTRACT: copy task node in an Ant build file
 
-use strict;
-use Moose::Role;
+use Carp;
+use English '-no_match_vars';
+use Moose;
+use MooseX::Has::Sugar;
+use MooseX::Types::Moose qw(ArrayRef Str);
+use MooseX::Types::Path::Class 'File';
+use Path::Class;
+use Regexp::DefaultFlags;
+## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
+## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
-with 'XML::Rabbit::Node' => { -version => '0.0.4' };
+with 'XML::Ant::BuildFile::Task';
 
-has project => (
-    isa         => 'XML::Ant::BuildFile::Project',
-    traits      => ['XPathObject'],
-    xpath_query => q{/},
-    handles     => ['properties'],
-);
-
+__PACKAGE__->meta->make_immutable();
 1;
 
 =pod
@@ -39,7 +41,7 @@ has project => (
 
 =head1 NAME
 
-XML::Ant::BuildFile::Role::InProject - role for nodes in an Ant project
+XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
 
 =head1 VERSION
 
@@ -47,27 +49,19 @@ version 0.206
 
 =head1 SYNOPSIS
 
-    package My::Project::Node;
-    use Moose;
-    with 'XML::Ant::BuildFile::Role::InProject';
-
-    1;
+    use XML::Ant::BuildFile::Project;
+    my $project = XML::Ant::BuildFile::Project->new( file => 'build.xml' );
+    my @foo_java = $project->target('foo')->tasks('java');
+    for my $java (@foo_java) {
+        print $java->classname || "$java->jar";
+        print "\n";
+    }
 
 =head1 DESCRIPTION
 
-This is a role providing common attributes for all child nodes in an
-L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
-
-=head1 ATTRIBUTES
-
-=head2 project
-
-Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
-at the root of the build file.
-
-=head2 properties
-
-Properties hash reference for the build file.
+This is an incomplete class for
+L<Ant Java task|http://ant.apache.org/manual/Tasks/java.html>s in a
+L<build file project|XML::Ant::BuildFile::Project>.
 
 =head1 BUGS
 

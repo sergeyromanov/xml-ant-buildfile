@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::FileList;
 
 BEGIN {
-    $XML::Ant::BuildFile::FileList::VERSION = '0.205';
+    $XML::Ant::BuildFile::FileList::VERSION = '0.206';
 }
 
 # ABSTRACT: file list node within an Ant build file
@@ -110,7 +110,7 @@ XML::Ant::BuildFile::FileList - file list node within an Ant build file
 
 =head1 VERSION
 
-version 0.205
+version 0.206
 
 =head1 SYNOPSIS
 

@@ -22,6 +22,7 @@ requires:
   Carp: 0
   English: 0
   Modern::Perl: 0
+  Module::Pluggable: 0
   Moose: 0
   Moose::Role: 0
   Moose::Util::TypeConstraints: 0
@@ -41,4 +42,4 @@ requires:
   utf8: 0
 resources:
   bugtracker: http://github.com/mjgardner/XML-Ant-BuildFile/issues
-version: 0.205
+version: 0.206

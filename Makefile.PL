@@ -30,6 +30,7 @@ my %WriteMakefileArgs = (
     'Carp' => '0',
     'English' => '0',
     'Modern::Perl' => '0',
+    'Module::Pluggable' => '0',
     'Moose' => '0',
     'Moose::Role' => '0',
     'Moose::Util::TypeConstraints' => '0',
@@ -47,7 +48,7 @@ my %WriteMakefileArgs = (
     'namespace::autoclean' => '0',
     'utf8' => '0'
   },
-  'VERSION' => '0.205',
+  'VERSION' => '0.206',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -12,7 +12,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Target;
 
 BEGIN {
-    $XML::Ant::BuildFile::Target::VERSION = '0.205';
+    $XML::Ant::BuildFile::Target::VERSION = '0.206';
 }
 
 # ABSTRACT: target node within an Ant build file
@@ -53,17 +53,26 @@ sub _build_dependencies {    ## no critic (ProhibitUnusedPrivateSubroutines)
         $self->_depends ];
 }
 
-has _tasks => (
-    traits      => [qw(XPathObjectList Array)],
-    xpath_query => './/java',
-    isa_map     => { java => 'XML::Ant::BuildFile::Task::Java' },
-    handles     => {
-        all_tasks    => 'elements',
-        task         => 'get',
-        filter_tasks => 'grep',
-        num_tasks    => 'count',
-    },
-);
+sub BUILD {
+    my $self = shift;
+
+    my %isa_map = map { lc( ( split /::/ => $ARG )[-1] ) => $ARG }
+        $self->project->task_plugins;
+    $self->meta->add_attribute(
+        _tasks => (
+            traits      => [qw(XPathObjectList Array)],
+            xpath_query => join( q{|} => map {".//$ARG"} keys %isa_map ),
+            isa_map     => \%isa_map,
+            handles     => {
+                all_tasks    => 'elements',
+                task         => 'get',
+                filter_tasks => 'grep',
+                num_tasks    => 'count',
+            },
+        )
+    );
+    return;
+}
 
 sub tasks {
     my ( $self, @names ) = @ARG;
@@ -85,7 +94,7 @@ XML::Ant::BuildFile::Target - target node within an Ant build file
 
 =head1 VERSION
 
-version 0.205
+version 0.206
 
 =head1 SYNOPSIS
 
@@ -130,6 +139,10 @@ Returns all task objects for which the given code reference returns C<true>.
 =head2 num_tasks
 
 Returns a count of the number of tasks in this target.
+
+=head2 BUILD
+
+Automatically run after object construction to set up task object support.
 
 =head2 tasks
 

@@ -2,7 +2,7 @@ NAME
     XML::Ant::BuildFile::Project - consume Ant build files
 
 VERSION
-    version 0.205
+    version 0.206
 
 SYNOPSIS
         use XML::Ant::BuildFile::Project;
