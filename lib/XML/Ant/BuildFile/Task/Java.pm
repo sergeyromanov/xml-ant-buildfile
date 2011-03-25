@@ -73,7 +73,7 @@ has _args => ( ro,
     },
 );
 
-sub _build_args {
+sub _build_args { ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self = shift;
 
     my @nested_args = $self->_filter_args(
