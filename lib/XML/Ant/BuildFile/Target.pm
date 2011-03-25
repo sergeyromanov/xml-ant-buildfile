@@ -9,10 +9,10 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Project::Target;
+package XML::Ant::BuildFile::Target;
 
 BEGIN {
-    $XML::Ant::BuildFile::Project::Target::VERSION = '0.205';
+    $XML::Ant::BuildFile::Target::VERSION = '0.205';
 }
 
 # ABSTRACT: target node within an Ant build file
@@ -72,7 +72,7 @@ __PACKAGE__->meta->make_immutable();
 
 =head1 NAME
 
-XML::Ant::BuildFile::Project::Target - target node within an Ant build file
+XML::Ant::BuildFile::Target - target node within an Ant build file
 
 =head1 VERSION
 
@@ -106,7 +106,7 @@ Name of the target.
 =head2
 
 If the target has any dependencies, this will return them as an array reference
-of L<XML::Ant::BuildFile::Project::Target|XML::Ant::BuildFile::Project::Target>
+of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>
 objects.
 
 =head1 BUGS

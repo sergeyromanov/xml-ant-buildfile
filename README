@@ -30,11 +30,11 @@ ATTRIBUTES
     Name of the Ant project.
 
   filelists
-    Array reference of XML::Ant::BuildFile::Project::FileLists.
+    Array reference of XML::Ant::BuildFile::FileLists.
 
   targets
-    Hash reference of XML::Ant::BuildFile::Project::Targets from the build
-    file. The keys are the target names.
+    Hash reference of XML::Ant::BuildFile::Targets from the build file. The
+    keys are the target names.
 
   properties
     Read-only hash reference to properties set by the build file. This also
@@ -48,16 +48,15 @@ ATTRIBUTES
 
 METHODS
   all_targets
-    Returns a list of all targets as XML::Ant::BuildFile::Project::Target
-    objects.
+    Returns a list of all targets as XML::Ant::BuildFile::Target objects.
 
   target_names
     Returns a list of the target names from the build file.
 
   get_target
     Given a list of target names, return the corresponding
-    XML::Ant::BuildFile::Project::Target objects. In scalar context return
-    only the last target specified.
+    XML::Ant::BuildFile::Target objects. In scalar context return only the
+    last target specified.
 
   has_target
     Given a target name, returns true or false if the target exists.
