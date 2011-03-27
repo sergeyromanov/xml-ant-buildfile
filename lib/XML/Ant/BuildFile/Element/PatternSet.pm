@@ -15,6 +15,8 @@ BEGIN {
     $XML::Ant::BuildFile::Element::PatternSet::VERSION = '0.206';
 }
 
+# ABSTRACT: Set of patterns in an Ant build file
+
 use English '-no_match_vars';
 use Moose;
 use MooseX::Has::Sugar;
@@ -50,7 +52,8 @@ has _includes => ( ro, lazy_build,
     handles => { includes => 'elements' },
 );
 
-sub _build_includes {
+sub _build_includes
+{    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self = shift;
     my @includes;
     if ( defined $self->_includes_attr ) {
@@ -78,7 +81,7 @@ __END__
 
 =head1 NAME
 
-XML::Ant::BuildFile::Element::PatternSet
+XML::Ant::BuildFile::Element::PatternSet - Set of patterns in an Ant build file
 
 =head1 VERSION
 

@@ -15,10 +15,12 @@ BEGIN {
     $XML::Ant::BuildFile::Resource::FileSet::VERSION = '0.206';
 }
 
+# ABSTRACT: Set of file resources in an Ant build file
+
 use English '-no_match_vars';
 use Moose;
 use MooseX::Has::Sugar;
-use MooseX::Types::Moose 'Str';
+use MooseX::Types::Moose qw(ArrayRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
 use Path::Class;
 use Regexp::DefaultFlags;
@@ -45,7 +47,8 @@ has _files => ( ro, lazy_build,
     handles => { files => 'elements' },
 );
 
-sub _build__files {
+sub _build__files
+{    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self = shift;
     my @patterns;
     for my $pattern ( $self->includes ) {
@@ -53,7 +56,7 @@ sub _build__files {
         # translate Ant globs into regular expressions
         $pattern =~ s/ [*] /.*/;
         $pattern =~ s/ [?] /./;
-        $pattern =~ s{ [/\\] \z}{**\z};
+        $pattern =~ s{ [/\\] \z}{**\\z};
         $pattern =~ s{ [*]{2} }{(?:(?:[^/]+)/)+};
         push @patterns, qr/$pattern/;
     }
@@ -89,7 +92,7 @@ __END__
 
 =head1 NAME
 
-XML::Ant::BuildFile::Resource::FileSet
+XML::Ant::BuildFile::Resource::FileSet - Set of file resources in an Ant build file
 
 =head1 VERSION
 

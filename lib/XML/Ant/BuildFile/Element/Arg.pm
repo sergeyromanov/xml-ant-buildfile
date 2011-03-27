@@ -15,6 +15,8 @@ BEGIN {
     $XML::Ant::BuildFile::Element::Arg::VERSION = '0.206';
 }
 
+# ABSTRACT: Argument element for a task in an Ant build file
+
 use Moose;
 use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef Maybe Str);
@@ -57,7 +59,7 @@ __PACKAGE__->meta->make_immutable();
 
 =head1 NAME
 
-XML::Ant::BuildFile::Element::Arg
+XML::Ant::BuildFile::Element::Arg - Argument element for a task in an Ant build file
 
 =head1 VERSION
 
