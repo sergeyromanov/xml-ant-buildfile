@@ -112,8 +112,7 @@ this FileSet.
 =head2 includes
 
 Returns a list of include patterns from the FileSet's C<includes> attribute
-and any nested C<< <include/> >> elements.  Inherited from
-L<XML::Ant::BuildFile::Element::PatternSet|XML::Ant::BuildFile::Element::PatternSet>.
+and any nested C<< <include/> >> elements.
 
 =head1 BUGS
 

@@ -94,6 +94,16 @@ version 0.206
 
 The file to copy to as a L<Path::Class::File|Path::Class::File> object.
 
+=head1 METHODS
+
+=head2 BUILD
+
+Automatically run after object construction to set up task object support.
+
+=head2 resources
+
+Given one or more resource type names, returns a list of objects.
+
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
