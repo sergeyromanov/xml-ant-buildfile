@@ -18,6 +18,7 @@ BEGIN {
 use English '-no_match_vars';
 use Moose;
 use MooseX::Has::Sugar;
+use MooseX::Types::Moose 'Str';
 use MooseX::Types::Path::Class qw(Dir File);
 use Path::Class;
 use Regexp::DefaultFlags;
@@ -52,7 +53,7 @@ sub _build__files {
         # translate Ant globs into regular expressions
         $pattern =~ s/ \* /.*/;
         $pattern =~ s/ \? /./;
-        $pattern =~ s{ [/\] \z}{**\z};
+        $pattern =~ s{ [/\\] \z}{**\z};
         $pattern =~ s{ ** }{(?:(?:[^/]+)/)+};
         push @patterns, qr/$pattern/;
     }

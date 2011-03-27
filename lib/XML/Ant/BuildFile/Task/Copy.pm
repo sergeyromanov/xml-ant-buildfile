@@ -23,6 +23,9 @@ use MooseX::Types::Moose 'Str';
 use MooseX::Has::Sugar;
 use MooseX::Types::Path::Class 'File';
 use Path::Class;
+use Regexp::DefaultFlags;
+## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
+## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Task';
 
