@@ -15,6 +15,7 @@ BEGIN {
     $XML::Ant::BuildFile::Resource::FileSet::VERSION = '0.206';
 }
 
+use English '-no_match_vars';
 use Moose;
 use MooseX::Has::Sugar;
 use MooseX::Types::Path::Class qw(Dir File);

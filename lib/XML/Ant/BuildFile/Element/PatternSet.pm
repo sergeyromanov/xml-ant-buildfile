@@ -15,6 +15,7 @@ BEGIN {
     $XML::Ant::BuildFile::Element::PatternSet::VERSION = '0.206';
 }
 
+use English '-no_match_vars';
 use Moose;
 use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef Maybe Str);
