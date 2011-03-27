@@ -17,7 +17,9 @@ BEGIN {
 
 # ABSTRACT: copy task node in an Ant build file
 
+use English '-no_match_vars';
 use Moose;
+use MooseX::Types::Moose 'Str';
 use MooseX::Has::Sugar;
 use MooseX::Types::Path::Class 'File';
 use Path::Class;
