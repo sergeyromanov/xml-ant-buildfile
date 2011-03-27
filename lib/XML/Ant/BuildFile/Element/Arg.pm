@@ -18,6 +18,9 @@ BEGIN {
 use Moose;
 use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef Maybe Str);
+use Regexp::DefaultFlags;
+## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
+## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
 with 'XML::Rabbit::Node';
 
@@ -35,9 +38,9 @@ has _args => ( ro, lazy_build,
     handles => { args => 'elements' },
 );
 
-sub _build__args {
+sub _build__args
+{    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self = shift;
-    $DB::single = 1;
     return [ $self->_value ] if defined $self->_value;
     return [ split / \s /, $self->_line ] if defined $self->_line;
     return [];
@@ -74,7 +77,7 @@ version 0.206
 
     sub all_args {
         my $self = shift;
-        return map {$_->args} @{ $self->arg_objects } );
+        return map {$_->args} @{ $self->arg_objects };
     }
 
 =head1 DESCRIPTION
