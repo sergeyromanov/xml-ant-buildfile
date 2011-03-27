@@ -51,10 +51,10 @@ sub _build__files {
     for my $pattern ( $self->includes ) {
 
         # translate Ant globs into regular expressions
-        $pattern =~ s/ \* /.*/;
-        $pattern =~ s/ \? /./;
+        $pattern =~ s/ [*] /.*/;
+        $pattern =~ s/ [?] /./;
         $pattern =~ s{ [/\\] \z}{**\z};
-        $pattern =~ s{ ** }{(?:(?:[^/]+)/)+};
+        $pattern =~ s{ [*]{2} }{(?:(?:[^/]+)/)+};
         push @patterns, qr/$pattern/;
     }
 
