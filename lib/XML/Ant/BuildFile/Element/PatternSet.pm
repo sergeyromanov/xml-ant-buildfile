@@ -9,10 +9,10 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Element::Arg;
+package XML::Ant::BuildFile::Element::PatternSet;
 
 BEGIN {
-    $XML::Ant::BuildFile::Element::Arg::VERSION = '0.206';
+    $XML::Ant::BuildFile::Element::PatternSet::VERSION = '0.206';
 }
 
 use Moose;
@@ -22,32 +22,52 @@ use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
-with 'XML::Rabbit::Node';
+with 'XML::Ant::BuildFile::Role::InProject';
 
-for my $attr (qw(value file path pathref line prefix suffix)) {
-    has "_$attr" => ( ro,
+my %str_attr = (
+    id             => './@id',
+    _includes_attr => './@includes',
+);
+
+while ( my ( $attr, $xpath ) = each %str_attr ) {
+    has $attr => ( ro,
         isa         => Str,
         traits      => ['XPathValue'],
-        xpath_query => "./\@$attr",
+        xpath_query => $xpath,
     );
 }
 
-has _args => ( ro, lazy_build,
-    isa => ArrayRef [ Maybe [Str] ],
-    traits  => ['Array'],
-    handles => { args => 'elements' },
+has _includes_nested => ( ro,
+    isa => ArrayRef [Str],
+    traits      => ['XPathValueList'],
+    xpath_query => './include/@name',
 );
 
-sub _build__args
-{    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
+has _includes => ( ro, lazy_build,
+    isa => ArrayRef [ Maybe [Str] ],
+    traits  => ['Array'],
+    handles => { includes => 'elements' },
+);
+
+sub _build_includes {
     my $self = shift;
-    return [ $self->_value ] if defined $self->_value;
-    return [ split / \s /, $self->_line ] if defined $self->_line;
-    return [];
+    my @includes;
+    if ( defined $self->_includes_attr ) {
+        push @includes, split / [\s,] /,
+            $self->project->apply_properties( $self->_includes_attr );
+    }
+    if ( defined $self->_includes_nested ) {
+        push @includes,
+            map { $self->project->apply_properties($ARG) }
+            @{ $self->_includes_nested };
+    }
+    return \@includes;
 }
 
 __PACKAGE__->meta->make_immutable();
 1;
+
+__END__
 
 =pod
 
@@ -57,48 +77,24 @@ __PACKAGE__->meta->make_immutable();
 
 =head1 NAME
 
-XML::Ant::BuildFile::Element::Arg
+XML::Ant::BuildFile::Element::PatternSet
 
 =head1 VERSION
 
 version 0.206
 
-=head1 SYNOPSIS
+=head1 ATTRIBUTES
 
-    package My::Ant::Task;
-    use Moose;
-    with 'XML::Ant::BuildFile::Task';
+=head2 id
 
-    has arg_objects => (
-        isa         => 'ArrayRef[XML::Ant::BuildFile::Element::Arg]',
-        traits      => ['XPathObjectList'],
-        xpath_query => './arg',
-    );
-
-    sub all_args {
-        my $self = shift;
-        return map {$_->args} @{ $self->arg_objects };
-    }
-
-=head1 DESCRIPTION
-
-This is an incomplete class to represent C<< <arg/> >> elements in a
-L<build file project|XML::Ant::BuildFile::Project>.
+C<< <id/ >> attribute of the C<< <patternset/> >>
 
 =head1 METHODS
 
-=head2 args
+=head2 includes
 
-Returns a list of arguments contained in the element.  Currently
-handles C<< <arg/> >> elements with the following attributes:
-
-=over
-
-=item value
-
-=item line
-
-=back
+Returns a list of include patterns from the PatternSet's C<includes> attribute
+and any nested C<< <include/> >> elements.
 
 =head1 BUGS
 
@@ -121,5 +117,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-__END__

@@ -18,8 +18,51 @@ BEGIN {
 # ABSTRACT: copy task node in an Ant build file
 
 use Moose;
+use MooseX::Has::Sugar;
+use MooseX::Types::Path::Class 'File';
+use Path::Class;
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Task';
+
+has _to_file => ( ro,
+    isa         => Str,
+    traits      => ['XPathValue'],
+    xpath_query => './@tofile',
+);
+
+has to_file => ( ro, lazy,
+    isa => File,
+    default =>
+        sub { dir( $ARG[0]->project->apply_properties( $ARG[0]->_to_file ) ) }
+    ,
+);
+
+sub BUILD {
+    my $self = shift;
+
+    ## no critic (ValuesAndExpressions::ProhibitMagicNumbers)
+    my %isa_map = map { lc( ( split /::/ => $ARG )[-1] ) => $ARG }
+        $self->project->resource_plugins;
+    $self->meta->add_attribute(
+        _tasks => (
+            traits      => [qw(XPathObjectList Array)],
+            xpath_query => join( q{|} => map {".//$ARG"} keys %isa_map ),
+            isa_map     => \%isa_map,
+            handles     => {
+                all_resources    => 'elements',
+                resource         => 'get',
+                filter_resources => 'grep',
+                num_resources    => 'count',
+            },
+        )
+    );
+    return;
+}
+
+sub resources {
+    my ( $self, @names ) = @ARG;
+    return $self->filter_resources( sub { $ARG->resource_name ~~ @names } );
+}
 
 __PACKAGE__->meta->make_immutable();
 1;
@@ -38,9 +81,11 @@ XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
 
 version 0.206
 
-=head1 SYNOPSIS
+=head1 ATTRIBUTES
 
-=head1 DESCRIPTION
+=head2 to_file
+
+The file to copy to as a L<Path::Class::File|Path::Class::File> object.
 
 =head1 BUGS
 

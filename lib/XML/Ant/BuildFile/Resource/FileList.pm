@@ -9,10 +9,10 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::FileList;
+package XML::Ant::BuildFile::Resource::FileList;
 
 BEGIN {
-    $XML::Ant::BuildFile::FileList::VERSION = '0.206';
+    $XML::Ant::BuildFile::Resource::FileList::VERSION = '0.206';
 }
 
 # ABSTRACT: file list node within an Ant build file
@@ -106,7 +106,7 @@ __PACKAGE__->meta->make_immutable();
 
 =head1 NAME
 
-XML::Ant::BuildFile::FileList - file list node within an Ant build file
+XML::Ant::BuildFile::Resource::FileList - file list node within an Ant build file
 
 =head1 VERSION
 

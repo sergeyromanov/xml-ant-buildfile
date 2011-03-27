@@ -27,6 +27,10 @@ use Module::Pluggable (
     sub_name    => 'task_plugins',
     search_path => 'XML::Ant::BuildFile::Task',
 );
+use Module::Pluggable (
+    sub_name    => 'resource_plugins',
+    search_path => 'XML::Ant::BuildFile::Resource',
+);
 use Path::Class;
 use Readonly;
 use Regexp::DefaultFlags;
@@ -58,7 +62,7 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
     );
 
     has _filelists => (
-        isa         => 'ArrayRef[XML::Ant::BuildFile::FileList]',
+        isa         => 'ArrayRef[XML::Ant::BuildFile::Resource::FileList]',
         traits      => [qw(XPathObjectList Array)],
         xpath_query => '//filelist[@id]',
         handles     => {
