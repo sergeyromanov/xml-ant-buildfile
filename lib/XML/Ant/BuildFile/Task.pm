@@ -25,10 +25,10 @@ use MooseX::Types::Moose 'Str';
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Role::InProject';
 
-has task_name => ( ro,
+has task_name => ( ro, lazy,
     isa      => Str,
     init_arg => undef,
-    default  => sub { $ARG->node->nodeName },
+    default  => sub { $ARG[0]->node->nodeName },
 );
 
 1;

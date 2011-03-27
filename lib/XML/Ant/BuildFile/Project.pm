@@ -25,7 +25,7 @@ use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class 'File';
 use Module::Pluggable (
     sub_name    => 'task_plugins',
-    search_path => 'XML::Ant::BuildFile::Task'
+    search_path => 'XML::Ant::BuildFile::Task',
 );
 use Path::Class;
 use Readonly;

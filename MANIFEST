@@ -7,6 +7,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+lib/XML/Ant/BuildFile/Element/Arg.pm
 lib/XML/Ant/BuildFile/FileList.pm
 lib/XML/Ant/BuildFile/Project.pm
 lib/XML/Ant/BuildFile/Role/HasProjects.pm
@@ -21,6 +22,7 @@ t/000-report-versions.t
 t/author-critic.t
 t/filelist.t
 t/filelist.xml
+t/java.t
 t/java.xml
 t/release-check-changes.t
 t/release-consistent-version.t
