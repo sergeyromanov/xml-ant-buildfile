@@ -29,11 +29,13 @@ use Regexp::DefaultFlags;
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::Element::PatternSet';
 
-has _dir => ( ro,
+has _dir =>
+    ( ro,
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     isa         => Str,
     traits      => ['XPathValue'],
     xpath_query => './@dir',
-);
+    );
 
 has dir => ( ro, lazy,
     isa => Dir,

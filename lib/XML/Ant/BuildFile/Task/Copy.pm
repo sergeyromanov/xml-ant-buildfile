@@ -29,11 +29,13 @@ use Regexp::DefaultFlags;
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Task';
 
-has _to_file => ( ro,
+has _to_file =>
+    ( ro,
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     isa         => Str,
     traits      => ['XPathValue'],
     xpath_query => './@tofile',
-);
+    );
 
 has to_file => ( ro, lazy,
     isa => File,

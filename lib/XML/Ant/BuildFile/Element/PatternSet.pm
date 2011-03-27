@@ -27,24 +27,27 @@ use Regexp::DefaultFlags;
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Role::InProject';
 
-my %str_attr = (
-    id             => './@id',
-    _includes_attr => './@includes',
-);
+{
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+    my %str_attr = (
+        id             => './@id',
+        _includes_attr => './@includes',
+    );
 
-while ( my ( $attr, $xpath ) = each %str_attr ) {
-    has $attr => ( ro,
-        isa         => Str,
-        traits      => ['XPathValue'],
-        xpath_query => $xpath,
+    while ( my ( $attr, $xpath ) = each %str_attr ) {
+        has $attr => ( ro,
+            isa         => Str,
+            traits      => ['XPathValue'],
+            xpath_query => $xpath,
+        );
+    }
+
+    has _includes_nested => ( ro,
+        isa => ArrayRef [Str],
+        traits      => ['XPathValueList'],
+        xpath_query => './include/@name',
     );
 }
-
-has _includes_nested => ( ro,
-    isa => ArrayRef [Str],
-    traits      => ['XPathValueList'],
-    xpath_query => './include/@name',
-);
 
 has _includes => ( ro, lazy_build,
     isa => ArrayRef [ Maybe [Str] ],
