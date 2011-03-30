@@ -9,37 +9,26 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Task::Copy;
+package XML::Ant::BuildFile::Resource;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Copy::VERSION = '0.206';
+    $XML::Ant::BuildFile::Resource::VERSION = '0.206';
 }
 
-# ABSTRACT: copy task node in an Ant build file
+# ABSTRACT: Role for Ant build file resources
 
+use strict;
 use English '-no_match_vars';
-use Moose;
-use MooseX::Types::Moose 'Str';
+use Moose::Role;
 use MooseX::Has::Sugar;
-use MooseX::Types::Path::Class 'File';
-use Path::Class;
+use MooseX::Types::Moose 'Str';
 use namespace::autoclean;
-extends 'XML::Ant::BuildFile::ResourceContainer';
-with 'XML::Ant::BuildFile::Task';
+with 'XML::Ant::BuildFile::Role::InProject';
 
-has _to_file =>
-    ( ro,
-    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
-    isa         => Str,
-    traits      => ['XPathValue'],
-    xpath_query => './@tofile',
-    );
-
-has to_file => ( ro, lazy,
-    isa => File,
-    default =>
-        sub { dir( $ARG[0]->project->apply_properties( $ARG[0]->_to_file ) ) }
-    ,
+has resource_name => ( ro, lazy,
+    isa      => Str,
+    init_arg => undef,
+    default  => sub { $ARG[0]->node->nodeName },
 );
 
 1;
@@ -52,17 +41,35 @@ has to_file => ( ro, lazy,
 
 =head1 NAME
 
-XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
+XML::Ant::BuildFile::Resource - Role for Ant build file resources
 
 =head1 VERSION
 
 version 0.206
 
+=head1 SYNOPSIS
+
+    package XML::Ant::BuildFile::Resource::Foo;
+    use Moose;
+    with 'XML::Ant::BuildFile::Resource';
+
+    after BUILD => sub {
+        my $self = shift;
+        print "I'm a ", $self->resource_name, "\n";
+    };
+
+    1;
+
+=head1 DESCRIPTION
+
+This is a role shared by resources in an
+L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
+
 =head1 ATTRIBUTES
 
-=head2 to_file
+=head2 resource_name
 
-The file to copy to as a L<Path::Class::File|Path::Class::File> object.
+Name of the task's XML node.
 
 =head1 BUGS
 
