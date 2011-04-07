@@ -17,6 +17,7 @@ BEGIN {
 
 # ABSTRACT: Path-like structure in an Ant build file
 
+use English '-no_match_vars';
 use Moose;
 use MooseX::Types::Moose 'ArrayRef';
 use namespace::autoclean;
