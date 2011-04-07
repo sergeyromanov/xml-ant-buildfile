@@ -67,6 +67,14 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
         },
     );
 
+    has _paths => (
+        isa         => 'HashRef[XML::Ant::BuildFile::Element::Path]',
+        traits      => [qw(XPathObjectMap Hash)],
+        xpath_query => '//classpath[@id]|//path[@id]',
+        xpath_key   => './@id',
+        handles     => { paths => 'get' },
+    );
+
     has targets => (
         auto_deref  => 1,
         isa         => 'HashRef[XML::Ant::BuildFile::Target]',
@@ -216,6 +224,12 @@ returns C<true>.
 =head2 num_filelists
 
 Returns a count of all C<filelist>s in the project.
+
+=head2 paths
+
+Given a list of one or more C<id> strings, returns a list of
+L<XML::Ant::BuildFile::Element::Path|XML::Ant::BuildFile::Element::Path>s
+for C<< <classpath/> >>s and C<< <path/> >>s in the project.
 
 =head2 target
 

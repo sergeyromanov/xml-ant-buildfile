@@ -68,6 +68,11 @@ METHODS
   num_filelists
     Returns a count of all "filelist"s in the project.
 
+  paths
+    Given a list of one or more "id" strings, returns a list of
+    XML::Ant::BuildFile::Element::Paths for "<classpath/>"s and "<path/>"s
+    in the project.
+
   target
     Given a list of target names, return the corresponding
     XML::Ant::BuildFile::Target objects. In scalar context return only the

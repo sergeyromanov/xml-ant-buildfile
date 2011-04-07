@@ -9,37 +9,33 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Task::Copy;
+package XML::Ant::BuildFile::Element::Path;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Copy::VERSION = '0.206';
+    $XML::Ant::BuildFile::Element::Path::VERSION = '0.206';
 }
 
-# ABSTRACT: copy task node in an Ant build file
+# ABSTRACT: Path-like structure in an Ant build file
 
-use English '-no_match_vars';
 use Moose;
-use MooseX::Types::Moose 'Str';
-use MooseX::Has::Sugar;
-use MooseX::Types::Path::Class 'File';
-use Path::Class;
+use MooseX::Types::Moose 'ArrayRef';
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';
-with 'XML::Ant::BuildFile::Task';
+with 'XML::Rabbit::Node';
 
-has _to_file =>
-    ( ro,
-    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
-    isa         => Str,
-    traits      => ['XPathValue'],
-    xpath_query => './@tofile',
-    );
+has _elements => (
+    isa         => ArrayRef,
+    traits      => ['XPathValueList'],
+    xpath_query => join(
+        q{|} => map { "./\@$ARG", "./pathelement/\@$ARG" } qw(path location),
+    ),
+);
 
-has to_file => ( ro, lazy,
-    isa => File,
-    default =>
-        sub { dir( $ARG[0]->project->apply_properties( $ARG[0]->_to_file ) ) }
-    ,
+has _collections => (
+    isa    => 'ArrayRef[XML::Ant::BuildFile::Resource]',
+    traits => ['XPathObjectList'],
+    xpath_query =>
+        join( q{|} => map {"./$ARG"} qw(filelist path fileset dirset) ),
 );
 
 1;
@@ -54,17 +50,11 @@ __END__
 
 =head1 NAME
 
-XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
+XML::Ant::BuildFile::Element::Path - Path-like structure in an Ant build file
 
 =head1 VERSION
 
 version 0.206
-
-=head1 ATTRIBUTES
-
-=head2 to_file
-
-The file to copy to as a L<Path::Class::File|Path::Class::File> object.
 
 =head1 BUGS
 
