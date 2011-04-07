@@ -28,7 +28,8 @@ has _elements => (
     isa         => ArrayRef,
     traits      => ['XPathValueList'],
     xpath_query => join(
-        q{|} => map { "./\@$ARG", "./pathelement/\@$ARG" } qw(path location),
+        q{|} =>
+            ( map { "./\@$ARG", "./pathelement/\@$ARG" } qw(path location) ),
     ),
 );
 
@@ -36,7 +37,7 @@ has _collections => (
     isa    => 'ArrayRef[XML::Ant::BuildFile::Resource]',
     traits => ['XPathObjectList'],
     xpath_query =>
-        join( q{|} => map {"./$ARG"} qw(filelist path fileset dirset) ),
+        join( q{|} => ( map {"./$ARG"} qw(filelist path fileset dirset) ) ),
 );
 
 1;
