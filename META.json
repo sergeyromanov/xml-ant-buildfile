@@ -50,8 +50,7 @@
             "File::Temp" : 0,
             "Scalar::Util" : 0,
             "Test::More" : "0.94",
-            "Test::Most" : 0,
-            "perl" : "5.004"
+            "Test::Most" : 0
          },
          "suggests" : {
             "Readonly::XS" : 0
