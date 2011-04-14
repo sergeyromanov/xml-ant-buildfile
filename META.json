@@ -40,7 +40,7 @@
             "XML::Rabbit::Node" : "v0.0.4",
             "XML::Rabbit::RootNode" : 0,
             "namespace::autoclean" : 0,
-            "perl" : "5.010",
+            "perl" : "5.012",
             "utf8" : 0
          }
       },
