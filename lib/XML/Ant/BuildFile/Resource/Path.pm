@@ -9,36 +9,48 @@
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Element::Path;
+package XML::Ant::BuildFile::Resource::Path;
 
 BEGIN {
-    $XML::Ant::BuildFile::Element::Path::VERSION = '0.206';
+    $XML::Ant::BuildFile::Resource::Path::VERSION = '0.206';
 }
 
 # ABSTRACT: Path-like structure in an Ant build file
 
 use English '-no_match_vars';
 use Moose;
-use MooseX::Types::Moose 'ArrayRef';
+use MooseX::Has::Sugar;
+use MooseX::Types::Moose qw(ArrayRef Str);
+use MooseX::Types::Path::Class qw(Dir File);
+use Path::Class;
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';
-with 'XML::Rabbit::Node';
+with 'XML::Ant::BuildFile::Resource';
 
-has _elements => (
-    isa         => ArrayRef,
-    traits      => ['XPathValueList'],
-    xpath_query => join(
-        q{|} => map { ( "./\@$ARG", "./pathelement/\@$ARG" ) }
-            qw(path location),
-    ),
+has _location => (
+    isa         => Str,
+    traits      => ['XPathValue'],
+    xpath_query => './@location',
 );
 
-has _collections => (
-    isa    => 'ArrayRef[XML::Ant::BuildFile::Resource]',
-    traits => ['XPathObjectList'],
-    xpath_query =>
-        join( q{|} => map {"./$ARG"} qw(filelist path fileset dirset) ),
+has _paths => ( ro, lazy_build,
+    isa => ArrayRef [ Dir | File ],
+    traits  => ['Array'],
+    handles => { all => 'elements' },
 );
+
+sub _build__paths {
+    my $self = shift;
+    my @paths;
+
+    if ( $self->_location ) {
+        push @paths,
+            file( $self->project->apply_properties( $self->_location ) );
+    }
+    push @paths, map { $ARG->files } $self->resources('filelist');
+
+    return \@paths;
+}
 
 1;
 
@@ -52,7 +64,7 @@ __END__
 
 =head1 NAME
 
-XML::Ant::BuildFile::Element::Path - Path-like structure in an Ant build file
+XML::Ant::BuildFile::Resource::Path - Path-like structure in an Ant build file
 
 =head1 VERSION
 

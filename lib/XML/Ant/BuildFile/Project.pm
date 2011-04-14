@@ -67,12 +67,13 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
         },
     );
 
-    has _paths => (
-        isa         => 'HashRef[XML::Ant::BuildFile::Element::Path]',
+    has paths => (
+        auto_deref  => 1,
+        isa         => 'HashRef[XML::Ant::BuildFile::Resource::Path]',
         traits      => [qw(XPathObjectMap Hash)],
         xpath_query => '//classpath[@id]|//path[@id]',
         xpath_key   => './@id',
-        handles     => { paths => 'get' },
+        handles     => { path => 'get', path_pairs => 'kv' },
     );
 
     has targets => (
@@ -171,6 +172,12 @@ by L<XML::Rabbit::Role::Document|XML::Rabbit::Role::Document>.
 
 Name of the Ant project.
 
+=head2 paths
+
+Hash of
+L<XML::Ant::BuildFile::Element::Path|XML::Ant::BuildFile::Element::Path>s
+from the build file.  The keys are the path C<id>s.
+
 =head2 targets
 
 Hash of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>s
@@ -225,7 +232,7 @@ returns C<true>.
 
 Returns a count of all C<filelist>s in the project.
 
-=head2 paths
+=head2 path
 
 Given a list of one or more C<id> strings, returns a list of
 L<XML::Ant::BuildFile::Element::Path|XML::Ant::BuildFile::Element::Path>s

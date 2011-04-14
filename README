@@ -30,6 +30,10 @@ ATTRIBUTES
   name
     Name of the Ant project.
 
+  paths
+    Hash of XML::Ant::BuildFile::Element::Paths from the build file. The
+    keys are the path "id"s.
+
   targets
     Hash of XML::Ant::BuildFile::Targets from the build file. The keys are
     the target names.
@@ -68,7 +72,7 @@ METHODS
   num_filelists
     Returns a count of all "filelist"s in the project.
 
-  paths
+  path
     Given a list of one or more "id" strings, returns a list of
     XML::Ant::BuildFile::Element::Paths for "<classpath/>"s and "<path/>"s
     in the project.
