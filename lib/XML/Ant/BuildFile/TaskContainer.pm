@@ -16,6 +16,8 @@ BEGIN {
     $XML::Ant::BuildFile::TaskContainer::VERSION = '0.206';
 }
 
+# ABSTRACT: Container for XML::Ant::BuildFile::Task plugins
+
 use English '-no_match_vars';
 use Moose;
 use Module::Pluggable (
@@ -66,7 +68,7 @@ __END__
 
 =head1 NAME
 
-XML::Ant::BuildFile::TaskContainer
+XML::Ant::BuildFile::TaskContainer - Container for XML::Ant::BuildFile::Task plugins
 
 =head1 VERSION
 

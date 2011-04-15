@@ -16,6 +16,8 @@ BEGIN {
     $XML::Ant::Properties::VERSION = '0.206';
 }
 
+# ABSTRACT: Singleton class for Ant properties
+
 use strict;
 use English '-no_match_vars';
 use MooseX::Singleton;
@@ -61,7 +63,7 @@ __END__
 
 =head1 NAME
 
-XML::Ant::Properties
+XML::Ant::Properties - Singleton class for Ant properties
 
 =head1 VERSION
 

@@ -16,6 +16,8 @@ BEGIN {
     $XML::Ant::BuildFile::ResourceContainer::VERSION = '0.206';
 }
 
+# ABSTRACT: Container for XML::Ant::BuildFile::Resource plugins
+
 use English '-no_match_vars';
 use Moose;
 use Module::Pluggable (
@@ -66,7 +68,7 @@ __END__
 
 =head1 NAME
 
-XML::Ant::BuildFile::ResourceContainer
+XML::Ant::BuildFile::ResourceContainer - Container for XML::Ant::BuildFile::Resource plugins
 
 =head1 VERSION
 
