@@ -29,6 +29,7 @@ use Regexp::DefaultFlags;
 use XML::Ant::Properties;
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';
+with 'XML::Rabbit::Node';
 
 has _location => (
     ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
