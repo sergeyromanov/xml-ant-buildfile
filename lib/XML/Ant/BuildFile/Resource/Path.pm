@@ -29,14 +29,6 @@ use Regexp::DefaultFlags;
 use XML::Ant::Properties;
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';
-with 'XML::Ant::BuildFile::Resource';
-
-has _location => (
-    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
-    isa         => Str,
-    traits      => ['XPathValue'],
-    xpath_query => './@location',
-);
 
 has _paths => ( ro,
     lazy_build,
@@ -66,6 +58,14 @@ sub _build__paths {    ## no critic (ProhibitUnusedPrivateSubroutines)
 }
 
 with 'XML::Ant::BuildFile::Resource';
+
+has _location => (
+    ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+    isa         => Str,
+    traits      => ['XPathValue'],
+    xpath_query => './@location',
+);
+
 1;
 
 __END__

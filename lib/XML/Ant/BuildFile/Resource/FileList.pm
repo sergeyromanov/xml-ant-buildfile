@@ -30,29 +30,6 @@ use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
 use XML::Ant::Properties;
 use namespace::autoclean;
-with 'XML::Ant::BuildFile::Resource';
-
-{
-## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
-
-    has _dir_attr => ( ro, required,
-        isa         => Str,
-        traits      => ['XPathValue'],
-        xpath_query => './@dir',
-    );
-
-    has _file_names => ( ro,
-        isa => ArrayRef [Str],
-        traits      => ['XPathValueList'],
-        xpath_query => './file/@name',
-    );
-
-    has _files_attr_names => ( ro,
-        isa         => Str,
-        traits      => ['XPathValue'],
-        xpath_query => './@files',
-    );
-}
 
 has directory => ( ro, required, lazy_build, isa => Dir, init_arg => undef );
 
@@ -112,6 +89,29 @@ sub _build__files
 }
 
 with 'XML::Ant::BuildFile::Resource';
+
+{
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+
+    has _dir_attr => ( ro, required,
+        isa         => Str,
+        traits      => ['XPathValue'],
+        xpath_query => './@dir',
+    );
+
+    has _file_names => ( ro,
+        isa => ArrayRef [Str],
+        traits      => ['XPathValueList'],
+        xpath_query => './file/@name',
+    );
+
+    has _files_attr_names => ( ro,
+        isa         => Str,
+        traits      => ['XPathValue'],
+        xpath_query => './@files',
+    );
+}
+
 __PACKAGE__->meta->make_immutable();
 1;
 
