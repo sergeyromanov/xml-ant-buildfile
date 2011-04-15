@@ -26,6 +26,8 @@ use MooseX::Types::Moose qw(ArrayRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
 use Path::Class;
 use Regexp::DefaultFlags;
+## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
+## no critic (RequireLineBoundaryMatching)
 use XML::Ant::Properties;
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';

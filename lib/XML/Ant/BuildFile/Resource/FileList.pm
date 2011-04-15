@@ -79,13 +79,14 @@ sub _build__files
         undef $recursion_guard;
     }
 
-    return [
-        map {
-            $self->directory->subsumes( file($ARG) )
-                ? file($ARG)
-                : $self->directory->file($ARG)
-            } @file_names
-    ];
+    return [ map { $self->_prepend_dir($ARG) } @file_names ];
+}
+
+sub _prepend_dir {
+    my ( $self, $file_name ) = @ARG;
+    return $self->directory->subsumes( file($file_name) )
+        ? file($file_name)
+        : $self->directory->file($file_name);
 }
 
 with 'XML::Ant::BuildFile::Resource';

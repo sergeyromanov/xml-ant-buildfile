@@ -15,6 +15,8 @@ package XML::Ant::Properties;
 BEGIN {
     $XML::Ant::Properties::VERSION = '0.206';
 }
+
+use strict;
 use English '-no_match_vars';
 use MooseX::Singleton;
 use MooseX::Has::Sugar;

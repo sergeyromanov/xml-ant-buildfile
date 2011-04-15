@@ -80,6 +80,10 @@ L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
 
 =head1 ATTRIBUTES
 
+=head2 as_string
+
+Every role consumer must implement the C<as_string> method.
+
 =head2 resource_name
 
 Name of the task's XML node.
@@ -87,6 +91,15 @@ Name of the task's XML node.
 =head2 id
 
 C<id> attribute of this resource.
+
+=head1 METHODS
+
+=head2 BUILD
+
+After a resource is constructed, it adds its L<id|/id> and
+L<string representation|/as_string> to the
+L<XML::Ant::Properties|XML::Ant::Properties> singleton with C<toString:>
+prepended to the C<id>.
 
 =head1 BUGS
 
