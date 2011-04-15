@@ -10,26 +10,46 @@ use 5.012;
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Role::InProject;
+package XML::Ant::Properties;
 
 BEGIN {
-    $XML::Ant::BuildFile::Role::InProject::VERSION = '0.206';
+    $XML::Ant::Properties::VERSION = '0.206';
 }
-
-# ABSTRACT: role for nodes in an Ant project
-
-use strict;
-use Moose::Role;
+use English '-no_match_vars';
+use MooseX::Singleton;
+use MooseX::Has::Sugar;
+use MooseX::Types::Moose qw(HashRef Str);
+use Regexp::DefaultFlags;
+## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
+## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
-with 'XML::Rabbit::Node' => { -version => '0.0.4' };
 
-has project => (
-    isa         => 'XML::Ant::BuildFile::Project',
-    traits      => ['XPathObject'],
-    xpath_query => q{/},
+has _properties => ( rw,
+    isa => HashRef [Str],
+    init_arg => undef,
+    traits   => ['Hash'],
+    default  => sub { {} },
+    handles  => {
+        map { $ARG => $ARG }
+            qw(count get set delete exists defined keys values clear),
+    },
 );
 
+sub apply {
+    my ( $self, $source ) = @ARG;
+    my %properties = %{ $self->_properties };
+    while ( $source =~ / \$ { [\w:.]+ } / ) {
+        while ( my ( $property, $value ) = each %properties ) {
+            $source =~ s/ \$ {$property} /$value/g;
+        }
+    }
+    return $source;
+}
+
+__PACKAGE__->meta->make_immutable();
 1;
+
+__END__
 
 =pod
 
@@ -39,31 +59,17 @@ has project => (
 
 =head1 NAME
 
-XML::Ant::BuildFile::Role::InProject - role for nodes in an Ant project
+XML::Ant::Properties
 
 =head1 VERSION
 
 version 0.206
 
-=head1 SYNOPSIS
+=head1 METHODS
 
-    package My::Project::Node;
-    use Moose;
-    with 'XML::Ant::BuildFile::Role::InProject';
+=head2 apply
 
-    1;
-
-=head1 DESCRIPTION
-
-This is a role providing common attributes for all child nodes in an
-L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
-
-=head1 ATTRIBUTES
-
-=head2 project
-
-Reference to the L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>
-at the root of the build file.
+Takes a string and applies property substitution to it.
 
 =head1 BUGS
 
@@ -86,5 +92,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-__END__

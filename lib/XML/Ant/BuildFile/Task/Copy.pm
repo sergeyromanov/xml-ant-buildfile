@@ -24,6 +24,7 @@ use MooseX::Types::Moose 'Str';
 use MooseX::Has::Sugar;
 use MooseX::Types::Path::Class 'File';
 use Path::Class;
+use XML::Ant::Properties;
 use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';
 with 'XML::Ant::BuildFile::Task';
@@ -39,8 +40,7 @@ has _to_file =>
 has to_file => ( ro, lazy,
     isa => File,
     default =>
-        sub { dir( $ARG[0]->project->apply_properties( $ARG[0]->_to_file ) ) }
-    ,
+        sub { dir( XML::Ant::Properties->apply( $ARG[0]->_to_file ) ) },
 );
 
 1;

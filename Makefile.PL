@@ -35,6 +35,7 @@ my %WriteMakefileArgs = (
     'Moose::Util::TypeConstraints' => '0',
     'MooseX::Has::Sugar' => '0',
     'MooseX::Has::Sugar::Minimal' => '0',
+    'MooseX::Singleton' => '0',
     'MooseX::Types::Moose' => '0',
     'MooseX::Types::Path::Class' => '0',
     'Path::Class' => '0',

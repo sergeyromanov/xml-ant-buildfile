@@ -18,6 +18,7 @@ BEGIN {
 
 # ABSTRACT: file list node within an Ant build file
 
+use Modern::Perl;
 use English '-no_match_vars';
 use Path::Class;
 use Regexp::DefaultFlags;
@@ -27,20 +28,17 @@ use Moose;
 use MooseX::Has::Sugar;
 use MooseX::Types::Moose qw(ArrayRef HashRef Str);
 use MooseX::Types::Path::Class qw(Dir File);
+use XML::Ant::Properties;
 use namespace::autoclean;
-with 'XML::Ant::BuildFile::Resource';
 
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
 
-    my %xpath_attr = ( _dir_attr => './@dir', id => './@id' );
-    while ( my ( $attr, $xpath ) = each %xpath_attr ) {
-        has $attr => ( ro, required,
-            isa         => Str,
-            traits      => ['XPathValue'],
-            xpath_query => $xpath,
-        );
-    }
+    has _dir_attr => ( ro, required,
+        isa         => Str,
+        traits      => ['XPathValue'],
+        xpath_query => './@dir',
+    );
 
     has _file_names => ( ro,
         isa => ArrayRef [Str],
@@ -55,13 +53,19 @@ with 'XML::Ant::BuildFile::Resource';
     );
 }
 
-has directory => ( ro, required, lazy,
-    isa      => Dir,
-    init_arg => undef,
-    default  => sub {
-        dir( $ARG[0]->project->apply_properties( $ARG[0]->_dir_attr ) );
-    },
-);
+has directory => ( ro, required, lazy_build, isa => Dir, init_arg => undef );
+
+sub _build_directory {    ## no critic (ProhibitUnusedPrivateSubroutines)
+    my $self      = shift;
+    my $directory = $self->_dir_attr;
+
+    if ( not state $recursion_guard) {
+        $recursion_guard = 1;
+        $directory       = XML::Ant::Properties->apply($directory);
+        undef $recursion_guard;
+    }
+    return dir($directory);
+}
 
 has _files => ( ro,
     lazy_build,
@@ -75,13 +79,13 @@ has _files => ( ro,
         find_file    => 'first',
         file         => 'get',
         num_files    => 'count',
+        as_string    => [ join => q{ } ],
     },
 );
 
 sub _build__files
 {    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
-    my $self    = shift;
-    my $project = $self->project;
+    my $self = shift;
     my @file_names;
 
     if ( defined $self->_file_names ) {
@@ -91,11 +95,22 @@ sub _build__files
         push @file_names, split / [,\s]* /, $self->_files_attr_names;
     }
 
+    if ( not state $recursion_guard) {
+        $recursion_guard = 1;
+        @file_names = map { XML::Ant::Properties->apply($ARG) } @file_names;
+        undef $recursion_guard;
+    }
+
     return [
-        map { $self->directory->file( $project->apply_properties($ARG) ) }
-            @file_names ];
+        map {
+            $self->directory->subsumes( file($ARG) )
+                ? file($ARG)
+                : $self->directory->file($ARG)
+            } @file_names
+    ];
 }
 
+with 'XML::Ant::BuildFile::Resource';
 __PACKAGE__->meta->make_immutable();
 1;
 
@@ -131,18 +146,16 @@ description.
 
 =head1 ATTRIBUTES
 
-=head2 id
-
-C<id> attribute of this file list.
-
 =head2 directory
 
 L<Path::Class::Dir|Path::Class::Dir> indicated by the C<< <filelist> >>
 element's C<dir> attribute with all property substitutions applied.
 
+=head1 METHODS
+
 =head2 files
 
-Reference to an array of L<Path::Class::File|Path::Class::File>s within
+Returns an array of L<Path::Class::File|Path::Class::File>s within
 this file list with all property substitutions applied.
 
 =head1 BUGS

@@ -26,11 +26,23 @@ use MooseX::Types::Moose 'Str';
 use namespace::autoclean;
 with 'XML::Ant::BuildFile::Role::InProject';
 
+requires 'as_string';
+
 has resource_name => ( ro, lazy,
     isa      => Str,
     init_arg => undef,
     default  => sub { $ARG[0]->node->nodeName },
 );
+
+has id =>
+    ( ro, isa => Str, traits => ['XPathValue'], xpath_query => './@id' );
+
+sub BUILD {
+    my $self = shift;
+    return if not $self->id;
+    XML::Ant::Properties->set( 'toString:' . $self->id, $self->as_string );
+    return;
+}
 
 1;
 
@@ -71,6 +83,10 @@ L<XML::Ant::BuildFile::Project|XML::Ant::BuildFile::Project>.
 =head2 resource_name
 
 Name of the task's XML node.
+
+=head2 id
+
+C<id> attribute of this resource.
 
 =head1 BUGS
 

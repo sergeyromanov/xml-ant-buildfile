@@ -29,6 +29,7 @@ use Readonly;
 use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
+extends 'XML::Ant::BuildFile::ResourceContainer';
 with 'XML::Rabbit::RootNode';
 
 subtype 'FileStr', as Str;
@@ -93,39 +94,19 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
     );
 }
 
-has properties => (
-    is      => ro,
-    isa     => HashRef [Str],
-    traits  => ['Hash'],
-    default => sub { {} },
-    handles => { property => 'get' },
-);
+sub BUILD {
+    my $self = shift;
 
-around properties => sub {
-    my ( $orig, $self ) = @ARG;
-    return {
+    XML::Ant::Properties->set(
         'os.name'          => $OSNAME,
         'basedir'          => file( $self->_file )->dir->stringify(),
         'ant.file'         => $self->_file,
         'ant.project.name' => $self->name,
         %{ $self->_properties },
-        %{ $self->$orig() },
-    };
-};
-
-sub apply_properties {
-    my ( $self, $source ) = @ARG;
-    my %properties = %{ $self->properties };
-
-    while ( $source =~ / \$ { [\w.]+ } / ) {
-        while ( my ( $property, $value ) = each %properties ) {
-            $source =~ s/ \$ {$property} /$value/g;
-        }
-    }
-    return $source;
+    );
+    return;
 }
 
-__PACKAGE__->meta->make_immutable();
 1;
 
 =pod
@@ -183,23 +164,6 @@ from the build file.  The keys are the path C<id>s.
 
 Hash of L<XML::Ant::BuildFile::Target|XML::Ant::BuildFile::Target>s
 from the build file.  The keys are the target names.
-
-=head2 properties
-
-Read-only hash reference to properties set by the build file.  This also
-contains the following predefined properties as per the Ant documentation:
-
-=over
-
-=item os.name
-
-=item basedir
-
-=item ant.file
-
-=item ant.project.name
-
-=back
 
 =head1 METHODS
 
@@ -263,13 +227,24 @@ Given a target name, returns true or false if the target exists.
 
 Returns a count of the number of targets in the build file.
 
-=head2 property
+=head2 BUILD
 
-Returns the value for one or more given property names.
+After construction, the app-wide L<XML::Ant::Properties|XML::Ant::Properties>
+singleton stores any C<< <property/> >> name/value pairs set by the build file.
+It also contains the following predefined properties as per the Ant
+documentation:
 
-=head2 apply_properties
+=over
 
-Takes a string and applies L<property|/properties> substitution to it.
+=item os.name
+
+=item basedir
+
+=item ant.file
+
+=item ant.project.name
+
+=back
 
 =head1 BUGS
 

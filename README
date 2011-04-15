@@ -38,16 +38,6 @@ ATTRIBUTES
     Hash of XML::Ant::BuildFile::Targets from the build file. The keys are
     the target names.
 
-  properties
-    Read-only hash reference to properties set by the build file. This also
-    contains the following predefined properties as per the Ant
-    documentation:
-
-    os.name
-    basedir
-    ant.file
-    ant.project.name
-
 METHODS
   filelists
     Returns an array of all filelists in the project.
@@ -94,11 +84,16 @@ METHODS
   num_targets
     Returns a count of the number of targets in the build file.
 
-  property
-    Returns the value for one or more given property names.
+  BUILD
+    After construction, the app-wide XML::Ant::Properties singleton stores
+    any "<property/>" name/value pairs set by the build file. It also
+    contains the following predefined properties as per the Ant
+    documentation:
 
-  apply_properties
-    Takes a string and applies property substitution to it.
+    os.name
+    basedir
+    ant.file
+    ant.project.name
 
 BUGS
     Please report any bugs or feature requests on the bugtracker website
