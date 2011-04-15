@@ -34,8 +34,11 @@ has resource_name => ( ro, lazy,
     default  => sub { $ARG[0]->node->nodeName },
 );
 
-has id =>
-    ( ro, isa => Str, traits => ['XPathValue'], xpath_query => './@id' );
+{
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
+    has id =>
+        ( ro, isa => Str, traits => ['XPathValue'], xpath_query => './@id' );
+}
 
 sub BUILD {
     my $self = shift;
