@@ -42,8 +42,10 @@ has resource_name => ( ro, lazy,
 
 sub BUILD {
     my $self = shift;
-    return if not $self->id;
-    XML::Ant::Properties->set( 'toString:' . $self->id, $self->as_string );
+    if ( $self->id ) {
+        XML::Ant::Properties->set(
+            'toString:' . $self->id => $self->as_string );
+    }
     return;
 }
 
