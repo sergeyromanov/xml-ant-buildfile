@@ -166,7 +166,7 @@ Name of the Ant project.
 =head2 paths
 
 Hash of
-L<XML::Ant::BuildFile::Element::Path|XML::Ant::BuildFile::Element::Path>s
+L<XML::Ant::BuildFile::Resource::Path|XML::Ant::BuildFile::Resource::Path>s
 from the build file.  The keys are the path C<id>s.
 
 =head2 targets
@@ -178,8 +178,8 @@ from the build file.  The keys are the target names.
 
 =head2 filelists
 
-Returns an array of all L<filelist|XML::Ant::BuildFile::FileList>s in the
-project.
+Returns an array of all L<filelist|XML::Ant::BuildFile::Resource::FileList>s
+in the project.
 
 =head2 filelist
 
@@ -209,7 +209,7 @@ Returns a count of all C<filelist>s in the project.
 =head2 path
 
 Given a list of one or more C<id> strings, returns a list of
-L<XML::Ant::BuildFile::Element::Path|XML::Ant::BuildFile::Element::Path>s
+L<XML::Ant::BuildFile::Resource::Path|XML::Ant::BuildFile::Resource::Path>s
 for C<< <classpath/> >>s and C<< <path/> >>s in the project.
 
 =head2 target
