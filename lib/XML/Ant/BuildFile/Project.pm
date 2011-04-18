@@ -97,6 +97,14 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
 sub BUILD {
     my $self = shift;
 
+    XML::Ant::Properties->set(
+        'os.name'          => $OSNAME,
+        'basedir'          => file( $self->_file )->dir->stringify(),
+        'ant.file'         => $self->_file,
+        'ant.project.name' => $self->name,
+        %{ $self->_properties },
+    );
+
     for my $attr ( $self->meta->get_all_attributes() ) {
         next if !$attr->has_type_constraint;
         if ( $attr->type_constraint->name
@@ -106,13 +114,6 @@ sub BUILD {
             my $dummy_attr = $self->$attr_name;
         }
     }
-    XML::Ant::Properties->set(
-        'os.name'          => $OSNAME,
-        'basedir'          => file( $self->_file )->dir->stringify(),
-        'ant.file'         => $self->_file,
-        'ant.project.name' => $self->name,
-        %{ $self->_properties },
-    );
     return;
 }
 
