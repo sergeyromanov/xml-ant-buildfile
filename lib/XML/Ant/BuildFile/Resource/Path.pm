@@ -70,8 +70,6 @@ has _location => (
 
 1;
 
-__END__
-
 =pod
 
 =for :stopwords Mark Gardner GSI Commerce
@@ -85,6 +83,31 @@ XML::Ant::BuildFile::Resource::Path - Path-like structure in an Ant build file
 =head1 VERSION
 
 version 0.206
+
+=head1 SYNOPSIS
+
+    package My::Ant;
+    use Moose;
+    with 'XML::Rabbit::RootNode';
+
+    has paths => (
+        isa         => 'HashRef[XML::Ant::BuildFile::Resource::Path]',
+        traits      => 'XPathObjectMap',
+        xpath_query => '//classpath[@id]|//path[@id]',
+        xpath_key   => './@id',
+    );
+
+=head1 DESCRIPTION
+
+This is a L<Moose|Moose> type class meant for use with
+L<XML::Rabbit|XML::Rabbit> when processing path-like structures in an Ant
+build file.
+
+=head1 METHODS
+
+=head2 all
+
+=head2 as_string
 
 =head1 BUGS
 
@@ -107,3 +130,5 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+__END__

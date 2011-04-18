@@ -45,8 +45,6 @@ has to_file => ( ro, lazy,
 
 1;
 
-__END__
-
 =pod
 
 =for :stopwords Mark Gardner GSI Commerce
@@ -60,6 +58,23 @@ XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
 =head1 VERSION
 
 version 0.206
+
+=head1 SYNOPSIS
+
+    package My::Ant;
+    use Moose;
+    with 'XML::Rabbit::Node';
+
+    has paths => (
+        isa         => 'ArrayRef[XML::Ant::BuildFile::Task::Copy]',
+        traits      => 'XPathObjectList',
+        xpath_query => './/copy',
+    );
+
+=head1 DESCRIPTION
+
+This is a L<Moose|Moose> type class meant for use with
+L<XML::Rabbit|XML::Rabbit> when processing copy tasks in an Ant build file.
 
 =head1 ATTRIBUTES
 
@@ -88,3 +103,5 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+__END__

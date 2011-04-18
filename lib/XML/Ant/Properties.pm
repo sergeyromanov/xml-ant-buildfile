@@ -83,7 +83,7 @@ version 0.206
 =head1 SYNOPSIS
 
     use XML::Ant::Properties;
-    XML::Ant::Properties->set(foo => 'fooprop', bar = 'barprop');
+    XML::Ant::Properties->set(foo => 'fooprop', bar => 'barprop');
     my $fooprop = XML::Ant::Properties->apply('${foo}');
 
 =head1 DESCRIPTION
