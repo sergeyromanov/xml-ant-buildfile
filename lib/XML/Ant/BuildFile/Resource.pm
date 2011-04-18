@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Resource;
 
 BEGIN {
-    $XML::Ant::BuildFile::Resource::VERSION = '0.206';
+    $XML::Ant::BuildFile::Resource::VERSION = '0.207';
 }
 
 # ABSTRACT: Role for Ant build file resources
@@ -63,7 +63,7 @@ XML::Ant::BuildFile::Resource - Role for Ant build file resources
 
 =head1 VERSION
 
-version 0.206
+version 0.207
 
 =head1 SYNOPSIS
 

@@ -42,4 +42,4 @@ requires:
   utf8: 0
 resources:
   bugtracker: http://github.com/mjgardner/XML-Ant-BuildFile/issues
-version: 0.206
+version: 0.207
