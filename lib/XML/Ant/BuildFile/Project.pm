@@ -94,6 +94,15 @@ has '+_file' => ( isa => 'FileStr', coerce => 1 );
 sub BUILD {
     my $self = shift;
 
+    for my $attr ( $self->meta->get_all_attributes() ) {
+        next if !$attr->has_type_constraint;
+        if ( $attr->type_constraint->name
+            =~ /XML::Ant::BuildFile::Resource::/ )
+        {
+            my $attr_name  = $attr->name;
+            my $dummy_attr = $self->$attr_name;
+        }
+    }
     XML::Ant::Properties->set(
         'os.name'          => $OSNAME,
         'basedir'          => file( $self->_file )->dir->stringify(),
@@ -227,7 +236,9 @@ Returns a count of the number of targets in the build file.
 =head2 BUILD
 
 After construction, the app-wide L<XML::Ant::Properties|XML::Ant::Properties>
-singleton stores any C<< <property/> >> name/value pairs set by the build file.
+singleton stores any C<< <property/> >> name/value pairs set by the build file,
+as well as any resource string expansions handled by
+L<XML::Ant::BuildFile::Resource|XML::Ant::BuildFile::Resource> plugins.
 It also contains the following predefined properties as per the Ant
 documentation:
 
