@@ -58,8 +58,6 @@ sub tasks {
 
 1;
 
-__END__
-
 =pod
 
 =for :stopwords Mark Gardner GSI Commerce
@@ -73,6 +71,17 @@ XML::Ant::BuildFile::TaskContainer - Container for XML::Ant::BuildFile::Task plu
 =head1 VERSION
 
 version 0.206
+
+=head1 SYNOPSIS
+
+    package XML::Ant::BuildFile::Task::Foo;
+    use Moose;
+    extends 'XML::Ant::BuildFile::TaskContainer';
+
+=head1 DESCRIPTION
+
+Base class for containers of multiple
+L<XML::Ant::BuildFile::Task|XML::Ant::BuildFile::Task> plugins.
 
 =head1 METHODS
 
@@ -121,3 +130,5 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+__END__

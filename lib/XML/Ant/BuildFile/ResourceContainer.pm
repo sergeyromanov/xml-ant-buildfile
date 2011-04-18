@@ -58,8 +58,6 @@ sub resources {
 
 1;
 
-__END__
-
 =pod
 
 =for :stopwords Mark Gardner GSI Commerce
@@ -73,6 +71,17 @@ XML::Ant::BuildFile::ResourceContainer - Container for XML::Ant::BuildFile::Reso
 =head1 VERSION
 
 version 0.206
+
+=head1 SYNOPSIS
+
+    package XML::Ant::BuildFile::Resource::Foo;
+    use Moose;
+    extends 'XML::Ant::BuildFile::ResourceContainer';
+
+=head1 DESCRIPTION
+
+Base class for containers of multiple
+L<XML::Ant::BuildFile::Resource|XML::Ant::BuildFile::Resource> plugins.
 
 =head1 METHODS
 
@@ -105,3 +114,5 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+__END__

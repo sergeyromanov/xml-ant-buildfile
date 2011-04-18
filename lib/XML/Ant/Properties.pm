@@ -66,8 +66,6 @@ sub apply {
 __PACKAGE__->meta->make_immutable();
 1;
 
-__END__
-
 =pod
 
 =for :stopwords Mark Gardner GSI Commerce
@@ -82,7 +80,38 @@ XML::Ant::Properties - Singleton class for Ant properties
 
 version 0.206
 
+=head1 SYNOPSIS
+
+    use XML::Ant::Properties;
+    XML::Ant::Properties->set(foo => 'fooprop', bar = 'barprop');
+    my $fooprop = XML::Ant::Properties->apply('${foo}');
+
+=head1 DESCRIPTION
+
+This is a singleton class for storing and applying properties while processing
+an Ant build file.  When properties are set their values are also subject to
+repeated Ant-style C<${name}> expansion.  You can also perform expansion with
+the L<apply|/apply> method.
+
 =head1 METHODS
+
+=head2 count
+
+=head2 get
+
+=head2 set
+
+=head2 delete
+
+=head2 exists
+
+=head2 defined
+
+=head2 keys
+
+=head2 values
+
+=head2 clear
 
 =head2 apply
 
@@ -109,3 +138,5 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
+
+__END__
