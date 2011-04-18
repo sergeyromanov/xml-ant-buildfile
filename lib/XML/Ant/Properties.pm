@@ -51,8 +51,9 @@ around set => sub {
 };
 
 sub apply {
-    my $self     = shift;
-    my $source   = shift or return;
+    my $self = shift;
+    my $source = shift or return;
+
     my %property = %{ $self->_properties };
     while ( $source =~ / \$ { [\w:.]+ } / ) {
         my $old_source = $source;
