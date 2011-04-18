@@ -22,14 +22,14 @@ use strict;
 use English '-no_match_vars';
 use MooseX::Singleton;
 use MooseX::Has::Sugar;
-use MooseX::Types::Moose qw(HashRef Str);
+use MooseX::Types::Moose qw(HashRef Maybe Str);
 use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
 use namespace::autoclean;
 
 has _properties => ( rw,
-    isa => HashRef [Str],
+    isa => HashRef [ Maybe [Str] ],
     init_arg => undef,
     traits   => ['Hash'],
     default  => sub { {} },
