@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::TaskContainer;
 
 BEGIN {
-    $XML::Ant::BuildFile::TaskContainer::VERSION = '0.210';
+    $XML::Ant::BuildFile::TaskContainer::VERSION = '0.211';
 }
 
 # ABSTRACT: Container for XML::Ant::BuildFile::Task plugins
@@ -44,6 +44,7 @@ sub BUILD {
                 all_tasks    => 'elements',
                 task         => 'get',
                 filter_tasks => 'grep',
+                find_task    => 'first',
                 num_tasks    => 'count',
             },
         )
@@ -70,7 +71,7 @@ XML::Ant::BuildFile::TaskContainer - Container for XML::Ant::BuildFile::Task plu
 
 =head1 VERSION
 
-version 0.210
+version 0.211
 
 =head1 SYNOPSIS
 

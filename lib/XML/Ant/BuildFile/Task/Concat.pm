@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Task::Concat;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Concat::VERSION = '0.210';
+    $XML::Ant::BuildFile::Task::Concat::VERSION = '0.211';
 }
 
 # ABSTRACT: concat task node in an Ant build file
@@ -57,7 +57,7 @@ XML::Ant::BuildFile::Task::Concat - concat task node in an Ant build file
 
 =head1 VERSION
 
-version 0.210
+version 0.211
 
 =head1 SYNOPSIS
 
