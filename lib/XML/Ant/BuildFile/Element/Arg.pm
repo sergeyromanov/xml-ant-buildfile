@@ -47,7 +47,8 @@ sub _build__args
     my $self = shift;
     return [ $self->_value ] if $self->_value;
     return [ split / \s /, $self->_line ] if $self->_line;
-    return [ XML::Ant::Properties->apply( $self->_pathref ) ]
+    return [
+        XML::Ant::Properties->apply( '${toString:' . $self->_pathref . '}' ) ]
         if $self->_pathref;
     return [];
 }
@@ -103,6 +104,8 @@ handles C<< <arg/> >> elements with the following attributes:
 =item value
 
 =item line
+
+=item pathref
 
 =back
 

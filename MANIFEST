@@ -30,6 +30,7 @@ t/filelist.t
 t/filelist.xml
 t/java.t
 t/java.xml
+t/java_args.t
 t/path.t
 t/release-consistent-version.t
 t/release-cpan-changes.t
