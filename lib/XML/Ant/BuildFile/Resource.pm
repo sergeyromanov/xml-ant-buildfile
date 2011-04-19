@@ -41,7 +41,7 @@ requires qw(as_string content);
     has _refid => ( ro,
         isa         => Str,
         traits      => ['XPathValue'],
-        xpath_query => './@refid'
+        xpath_query => './@refid',
     );
 }
 
