@@ -43,6 +43,9 @@
             "namespace::autoclean" : 0,
             "perl" : "5.012",
             "utf8" : 0
+         },
+         "suggests" : {
+            "Readonly::XS" : 0
          }
       },
       "test" : {
