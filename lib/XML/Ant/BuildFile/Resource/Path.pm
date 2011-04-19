@@ -59,8 +59,10 @@ sub _build__paths {    ## no critic (ProhibitUnusedPrivateSubroutines)
     return \@paths;
 }
 
-has content => ( ro, lazy_build, isa => ArrayRef [ Dir | File ] );
-sub _build_content { $ARG[0]->_paths }
+has content => ( ro, lazy,
+    isa => ArrayRef [ Dir | File ],
+    default => sub { $ARG[0]->_paths },
+);
 
 with 'XML::Ant::BuildFile::Resource';
 
