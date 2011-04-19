@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Resource::Path;
 
 BEGIN {
-    $XML::Ant::BuildFile::Resource::Path::VERSION = '0.209';
+    $XML::Ant::BuildFile::Resource::Path::VERSION = '0.210';
 }
 
 # ABSTRACT: Path-like structure in an Ant build file
@@ -40,6 +40,12 @@ has _paths => ( ro,
         all       => 'elements',
         as_string => [ join => $OSNAME =~ /\A MSWin/ ? q{;} : q{:} ],
     },
+);
+
+has content => ( ro, lazy,
+    isa => ArrayRef [ Dir | File ],
+    init_arg => undef,
+    default  => sub { $ARG[0]->_paths },
 );
 
 sub _build__paths {    ## no critic (ProhibitUnusedPrivateSubroutines)
@@ -82,7 +88,7 @@ XML::Ant::BuildFile::Resource::Path - Path-like structure in an Ant build file
 
 =head1 VERSION
 
-version 0.209
+version 0.210
 
 =head1 SYNOPSIS
 

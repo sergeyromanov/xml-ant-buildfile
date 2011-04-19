@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Resource::FileList;
 
 BEGIN {
-    $XML::Ant::BuildFile::Resource::FileList::VERSION = '0.209';
+    $XML::Ant::BuildFile::Resource::FileList::VERSION = '0.210';
 }
 
 # ABSTRACT: file list node within an Ant build file
@@ -59,6 +59,12 @@ has _files => ( ro,
         num_files    => 'count',
         as_string    => [ join => q{ } ],
     },
+);
+
+has content => ( ro, lazy,
+    isa => ArrayRef [File],
+    init_arg => undef,
+    default  => sub { $ARG[0]->_files },
 );
 
 sub _build__files
@@ -128,7 +134,7 @@ XML::Ant::BuildFile::Resource::FileList - file list node within an Ant build fil
 
 =head1 VERSION
 
-version 0.209
+version 0.210
 
 =head1 SYNOPSIS
 

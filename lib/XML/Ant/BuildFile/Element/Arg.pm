@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Element::Arg;
 
 BEGIN {
-    $XML::Ant::BuildFile::Element::Arg::VERSION = '0.209';
+    $XML::Ant::BuildFile::Element::Arg::VERSION = '0.210';
 }
 
 # ABSTRACT: Argument element for a task in an Ant build file
@@ -74,7 +74,7 @@ XML::Ant::BuildFile::Element::Arg - Argument element for a task in an Ant build 
 
 =head1 VERSION
 
-version 0.209
+version 0.210
 
 =head1 SYNOPSIS
 

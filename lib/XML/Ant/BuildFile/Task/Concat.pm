@@ -10,13 +10,13 @@ use 5.012;
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
-package XML::Ant::BuildFile::Task::Copy;
+package XML::Ant::BuildFile::Task::Concat;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Copy::VERSION = '0.210';
+    $XML::Ant::BuildFile::Task::Concat::VERSION = '0.210';
 }
 
-# ABSTRACT: copy task node in an Ant build file
+# ABSTRACT: concat task node in an Ant build file
 
 use English '-no_match_vars';
 use Moose;
@@ -29,18 +29,18 @@ use namespace::autoclean;
 extends 'XML::Ant::BuildFile::ResourceContainer';
 with 'XML::Ant::BuildFile::Task';
 
-has _to_file =>
+has _destfile =>
     ( ro,
     ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     isa         => Str,
     traits      => ['XPathValue'],
-    xpath_query => './@tofile',
+    xpath_query => './@destfile',
     );
 
-has to_file => ( ro, lazy,
+has destfile => ( ro, lazy,
     isa => File,
     default =>
-        sub { dir( XML::Ant::Properties->apply( $ARG[0]->_to_file ) ) },
+        sub { dir( XML::Ant::Properties->apply( $ARG[0]->_destfile ) ) },
 );
 
 1;
@@ -53,7 +53,7 @@ has to_file => ( ro, lazy,
 
 =head1 NAME
 
-XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
+XML::Ant::BuildFile::Task::Concat - concat task node in an Ant build file
 
 =head1 VERSION
 
@@ -66,22 +66,23 @@ version 0.210
     with 'XML::Rabbit::Node';
 
     has paths => (
-        isa         => 'ArrayRef[XML::Ant::BuildFile::Task::Copy]',
+        isa         => 'ArrayRef[XML::Ant::BuildFile::Task::Concat]',
         traits      => 'XPathObjectList',
-        xpath_query => './/copy',
+        xpath_query => './/concat',
     );
 
 =head1 DESCRIPTION
 
 This is a L<Moose|Moose> type class meant for use with
-L<XML::Rabbit|XML::Rabbit> when processing C<< <copy/> >> tasks in an Ant
+L<XML::Rabbit|XML::Rabbit> when processing C<< <concat/> >> tasks in an Ant
 build file.
 
 =head1 ATTRIBUTES
 
-=head2 to_file
+=head2 destfile
 
-The file to copy to as a L<Path::Class::File|Path::Class::File> object.
+The file to concatenate into as a L<Path::Class::File|Path::Class::File>
+object.
 
 =head1 BUGS
 
