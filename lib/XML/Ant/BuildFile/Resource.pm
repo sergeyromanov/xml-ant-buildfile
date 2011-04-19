@@ -34,6 +34,19 @@ has resource_name => ( ro, lazy,
 
 requires qw(as_string content);
 
+around as_string => sub {
+    my ( $orig, $self ) = splice @ARG, 0, 2;
+    return $self->$orig(@ARG) if !$self->_refid;
+
+    my $antecedent = $self->project->find_resource(
+        sub {
+            $ARG->resource_name eq $self->resource_name
+                and $ARG->id eq $self->_refid;
+        }
+    );
+    return $antecedent->as_string;
+};
+
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     has id =>
@@ -47,18 +60,18 @@ requires qw(as_string content);
 
 has content => ( ro, lazy_build, isa => Maybe );
 
-sub _build_content {    ## no critic (ProhibitUnusedPrivateSubroutines)
-    my $self = shift;
-    return if not $self->_refid;
+around content => sub {
+    my ( $orig, $self ) = splice @ARG, 0, 2;
+    return $self->$orig(@ARG) if !$self->_refid;
 
-    my $antecedent = $self->project->find_resources(
+    my $antecedent = $self->project->find_resource(
         sub {
             $ARG->resource_name eq $self->resource_name
                 and $ARG->id eq $self->_refid;
         }
     );
     return $antecedent->content;
-}
+};
 
 sub BUILD {
     my $self = shift;
@@ -121,7 +134,8 @@ Every role consumer must implement the C<as_string> method.
 
 L<XML::Ant::BuildFile::Resource|XML::Ant::BuildFile::Resource> provides a
 default C<content> attribute, but it only returns C<undef>.  Consumers should
-return something else in order to support resources with C<refid> attributes.
+use the C<around> method modifier to return something else in order to
+support resources with C<refid> attributes
 
 =head1 METHODS
 

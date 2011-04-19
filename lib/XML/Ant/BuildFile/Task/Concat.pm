@@ -40,7 +40,7 @@ has _destfile =>
 has destfile => ( ro, lazy,
     isa => File,
     default =>
-        sub { dir( XML::Ant::Properties->apply( $ARG[0]->_destfile ) ) },
+        sub { file( XML::Ant::Properties->apply( $ARG[0]->_destfile ) ) },
 );
 
 1;

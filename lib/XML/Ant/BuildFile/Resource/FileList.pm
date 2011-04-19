@@ -61,12 +61,6 @@ has _files => ( ro,
     },
 );
 
-has content => ( ro, lazy,
-    isa => ArrayRef [File],
-    init_arg => undef,
-    default  => sub { $ARG[0]->_files },
-);
-
 sub _build__files
 {    ## no critic (Subroutines::ProhibitUnusedPrivateSubroutines)
     my $self = shift;
@@ -94,6 +88,9 @@ sub _prepend_dir {
         ? file($file_name)
         : $self->directory->file($file_name);
 }
+
+has content => ( ro, lazy_build, isa => ArrayRef [File] );
+sub _build_content { $ARG[0]->_files }
 
 with 'XML::Ant::BuildFile::Resource';
 

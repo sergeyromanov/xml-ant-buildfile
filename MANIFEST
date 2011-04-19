@@ -26,6 +26,7 @@ perlcritic.rc
 t/00-compile.t
 t/000-report-versions.t
 t/author-critic.t
+t/concat.t
 t/copy_filelist.t
 t/filelist.t
 t/filelist.xml
