@@ -32,20 +32,22 @@ has resource_name => ( ro, lazy,
     default  => sub { $ARG[0]->node->nodeName },
 );
 
+requires qw(as_string content);
+
 {
 ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
     has id =>
         ( ro, isa => Str, traits => ['XPathValue'], xpath_query => './@id' );
+    has _refid => ( ro,
+        isa         => Str,
+        traits      => ['XPathValue'],
+        xpath_query => './@refid'
+    );
 }
-
-requires qw(as_string content);
-
-has _refid =>
-    ( ro, isa => Str, traits => ['XPathValue'], xpath_query => './@refid' );
 
 has content => ( ro, lazy_build, isa => Maybe );
 
-sub _build_content {
+sub _build_content {    ## no critic (ProhibitUnusedPrivateSubroutines)
     my $self = shift;
     return if not $self->_refid;
 
