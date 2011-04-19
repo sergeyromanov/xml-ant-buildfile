@@ -35,7 +35,7 @@ has _properties => ( rw,
     default  => sub { {} },
     handles  => {
         map { $ARG => $ARG }
-            qw(count get set delete exists defined keys values clear kv),
+            qw(count get set delete exists defined keys values clear),
     },
 );
 
@@ -114,8 +114,6 @@ the L<apply|/apply> method.
 =head2 values
 
 =head2 clear
-
-=head2 kv
 
 =head2 apply
 
