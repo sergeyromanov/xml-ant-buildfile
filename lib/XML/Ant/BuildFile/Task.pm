@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Task;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::VERSION = '0.207';
+    $XML::Ant::BuildFile::Task::VERSION = '0.208';
 }
 
 # ABSTRACT: Role for Ant build file tasks
@@ -46,7 +46,7 @@ XML::Ant::BuildFile::Task - Role for Ant build file tasks
 
 =head1 VERSION
 
-version 0.207
+version 0.208
 
 =head1 SYNOPSIS
 

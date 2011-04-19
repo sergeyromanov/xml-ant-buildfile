@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Role::InProject;
 
 BEGIN {
-    $XML::Ant::BuildFile::Role::InProject::VERSION = '0.207';
+    $XML::Ant::BuildFile::Role::InProject::VERSION = '0.208';
 }
 
 # ABSTRACT: role for nodes in an Ant project
@@ -43,7 +43,7 @@ XML::Ant::BuildFile::Role::InProject - role for nodes in an Ant project
 
 =head1 VERSION
 
-version 0.207
+version 0.208
 
 =head1 SYNOPSIS
 

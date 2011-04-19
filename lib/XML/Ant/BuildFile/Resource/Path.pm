@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Resource::Path;
 
 BEGIN {
-    $XML::Ant::BuildFile::Resource::Path::VERSION = '0.207';
+    $XML::Ant::BuildFile::Resource::Path::VERSION = '0.208';
 }
 
 # ABSTRACT: Path-like structure in an Ant build file
@@ -82,7 +82,7 @@ XML::Ant::BuildFile::Resource::Path - Path-like structure in an Ant build file
 
 =head1 VERSION
 
-version 0.207
+version 0.208
 
 =head1 SYNOPSIS
 

@@ -25,7 +25,7 @@
             "English" : 0,
             "Modern::Perl" : 0,
             "Module::Pluggable" : 0,
-            "Moose" : 0,
+            "Moose" : "2.0000",
             "Moose::Role" : 0,
             "Moose::Util::TypeConstraints" : 0,
             "MooseX::Has::Sugar" : 0,
@@ -64,6 +64,6 @@
          "web" : "http://github.com/mjgardner/XML-Ant-BuildFile/issues"
       }
    },
-   "version" : "0.207"
+   "version" : "0.208"
 }
 
