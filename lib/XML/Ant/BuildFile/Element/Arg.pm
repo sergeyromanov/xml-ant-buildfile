@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Element::Arg;
 
 BEGIN {
-    $XML::Ant::BuildFile::Element::Arg::VERSION = '0.208';
+    $XML::Ant::BuildFile::Element::Arg::VERSION = '0.209';
 }
 
 # ABSTRACT: Argument element for a task in an Ant build file
@@ -24,6 +24,7 @@ use MooseX::Types::Moose qw(ArrayRef Maybe Str);
 use Regexp::DefaultFlags;
 ## no critic (RequireDotMatchAnything, RequireExtendedFormatting)
 ## no critic (RequireLineBoundaryMatching)
+use XML::Ant::Properties;
 use namespace::autoclean;
 with 'XML::Rabbit::Node';
 
@@ -46,6 +47,8 @@ sub _build__args
     my $self = shift;
     return [ $self->_value ] if $self->_value;
     return [ split / \s /, $self->_line ] if $self->_line;
+    return [ XML::Ant::Properties->apply( $self->_pathref ) ]
+        if $self->_pathref;
     return [];
 }
 
@@ -64,7 +67,7 @@ XML::Ant::BuildFile::Element::Arg - Argument element for a task in an Ant build 
 
 =head1 VERSION
 
-version 0.208
+version 0.209
 
 =head1 SYNOPSIS
 

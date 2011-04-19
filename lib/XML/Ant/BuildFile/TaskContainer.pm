@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::TaskContainer;
 
 BEGIN {
-    $XML::Ant::BuildFile::TaskContainer::VERSION = '0.208';
+    $XML::Ant::BuildFile::TaskContainer::VERSION = '0.209';
 }
 
 # ABSTRACT: Container for XML::Ant::BuildFile::Task plugins
@@ -70,7 +70,7 @@ XML::Ant::BuildFile::TaskContainer - Container for XML::Ant::BuildFile::Task plu
 
 =head1 VERSION
 
-version 0.208
+version 0.209
 
 =head1 SYNOPSIS
 
