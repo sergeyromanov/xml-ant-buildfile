@@ -40,16 +40,15 @@ cmp_deeply(
                 [ file(qw(t target yui concat site.css))->stringify() ]
         ],
         [   'site.js.concat' =>
-                [ file(qw(t target yui concat site.js))->stringify() ],
-            [   'site.css.min' => [
-                    file(qw(t target yui mincat css min site.css))
-                        ->stringify()
-                ]
-            ],
-            [   'site.js.min' => [
-                    file(qw(t target yui mincat js min site.js))->stringify()
-                ]
-            ],
-        ),
-        'path location pairs',
-    );
+                [ file(qw(t target yui concat site.js))->stringify() ]
+        ],
+        [   'site.css.min' => [
+                file(qw(t target yui mincat css min site.css))->stringify()
+            ]
+        ],
+        [   'site.js.min' =>
+                [ file(qw(t target yui mincat js min site.js))->stringify() ]
+        ],
+    ),
+    'path location pairs',
+);
