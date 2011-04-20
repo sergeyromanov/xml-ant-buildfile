@@ -34,7 +34,6 @@ t/java.t
 t/java.xml
 t/java_args.t
 t/path.t
-t/release-consistent-version.t
 t/release-cpan-changes.t
 t/release-dist-manifest.t
 t/release-distmeta.t
@@ -49,6 +48,7 @@ t/release-pod-linkcheck.t
 t/release-pod-syntax.t
 t/release-portability.t
 t/release-synopsis.t
+t/release-unused-vars.t
 t/yui-build.xml
 weaver.ini
 xt/author/perltidy.rc

@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Task::Copy;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Copy::VERSION = '0.212';
+    $XML::Ant::BuildFile::Task::Copy::VERSION = '0.213';
 }
 
 # ABSTRACT: copy task node in an Ant build file
@@ -61,7 +61,7 @@ XML::Ant::BuildFile::Task::Copy - copy task node in an Ant build file
 
 =head1 VERSION
 
-version 0.212
+version 0.213
 
 =head1 SYNOPSIS
 
