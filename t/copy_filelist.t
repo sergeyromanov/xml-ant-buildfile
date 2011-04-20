@@ -33,10 +33,11 @@ isa_ok(
 );
 cmp_bag(
     [ $filelist->map_files( sub {"$ARG"} ) ],
-    [   map { file( @{$ARG} )->stringify() } (
-            [qw(t target yui mincat css min site.css)],
-            [qw(t target yui mincat js min site.js)],
-        )
-    ],
+    [ map { target_mincat($ARG) } qw(css/min/site.css js/min/site.js) ],
     'names in file list',
 );
+
+sub target_mincat {
+    return Path::Class::File->new_foreign( 'Unix', 't/target/yui/mincat',
+        @ARG )->stringify();
+}
