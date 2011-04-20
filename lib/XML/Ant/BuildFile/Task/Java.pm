@@ -86,8 +86,7 @@ version 0.212
 
 =head1 DESCRIPTION
 
-This is an incomplete class for
-L<Ant Java task|http://ant.apache.org/manual/Tasks/java.html>s in a
+This is an incomplete class for Ant Java tasks in a
 L<build file project|XML::Ant::BuildFile::Project>.
 
 =head1 ATTRIBUTES
