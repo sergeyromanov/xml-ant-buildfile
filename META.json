@@ -64,7 +64,13 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "http://github.com/mjgardner/XML-Ant-BuildFile/issues"
+         "web" : "https://github.com/mjgardner/xml-ant-buildfile/issues"
+      },
+      "homepage" : "http://search.cpan.org/dist/XML-Ant-BuildFile/",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/mjgardner/xml-ant-buildfile.git",
+         "web" : "https://github.com/mjgardner/xml-ant-buildfile"
       }
    },
    "version" : "0.213"
