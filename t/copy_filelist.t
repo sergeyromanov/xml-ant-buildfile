@@ -13,6 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
 use Test::Most tests => 4;
 use English '-no_match_vars';
+use Path::Class;
 use XML::Ant::BuildFile::Project;
 
 my $project = XML::Ant::BuildFile::Project->new( file => 't/yui-build.xml' );
@@ -32,8 +33,10 @@ isa_ok(
 );
 cmp_bag(
     [ $filelist->map_files( sub {"$ARG"} ) ],
-    [   qw(t/target/yui/mincat/css/min/site.css
-            t/target/yui/mincat/js/min/site.js),
+    [   map { file( @{$ARG} )->stringify() } (
+            [qw(t target yui mincat css min site.css)],
+            [qw(t target yui mincat js min site.js)],
+        )
     ],
     'names in file list',
 );

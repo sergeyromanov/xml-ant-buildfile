@@ -44,4 +44,4 @@ resources:
   bugtracker: https://github.com/mjgardner/xml-ant-buildfile/issues
   homepage: http://search.cpan.org/dist/XML-Ant-BuildFile/
   repository: git://github.com/mjgardner/xml-ant-buildfile.git
-version: 0.213
+version: 0.214

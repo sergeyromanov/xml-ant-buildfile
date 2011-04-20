@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::Task::Java;
 
 BEGIN {
-    $XML::Ant::BuildFile::Task::Java::VERSION = '0.213';
+    $XML::Ant::BuildFile::Task::Java::VERSION = '0.214';
 }
 
 # ABSTRACT: Java task node in an Ant build file
@@ -73,7 +73,7 @@ XML::Ant::BuildFile::Task::Java - Java task node in an Ant build file
 
 =head1 VERSION
 
-version 0.213
+version 0.214
 
 =head1 SYNOPSIS
 

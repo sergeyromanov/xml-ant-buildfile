@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::Properties;
 
 BEGIN {
-    $XML::Ant::Properties::VERSION = '0.213';
+    $XML::Ant::Properties::VERSION = '0.214';
 }
 
 # ABSTRACT: Singleton class for Ant properties
@@ -81,7 +81,7 @@ XML::Ant::Properties - Singleton class for Ant properties
 
 =head1 VERSION
 
-version 0.213
+version 0.214
 
 =head1 SYNOPSIS
 

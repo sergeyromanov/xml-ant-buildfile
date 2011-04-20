@@ -36,10 +36,20 @@ cmp_deeply(
             [ $ARG->[0] => [ map {"$ARG"} $ARG->[1]->all ] ]
             } $project->path_pairs,
     ],
-    bag([ 'site.css.concat' => ['t/target/yui/concat/site.css'] ],
-        [ 'site.js.concat'  => ['t/target/yui/concat/site.js'] ],
-        [ 'site.css.min'    => ['t/target/yui/mincat/css/min/site.css'] ],
-        [ 'site.js.min'     => ['t/target/yui/mincat/js/min/site.js'] ],
-    ),
-    'path location pairs',
-);
+    bag([   'site.css.concat' =>
+                [ file(qw(t target yui concat site.css))->stringify() ]
+        ],
+        [   'site.js.concat' =>
+                [ file(qw(t target yui concat site.js))->stringify() ],
+            [   'site.css.min' => [
+                    file(qw(t target yui mincat css min site.css))
+                        ->stringify()
+                ]
+            ],
+            [   'site.js.min' => [
+                    file(qw(t target yui mincat js min site.js))->stringify()
+                ]
+            ],
+        ),
+        'path location pairs',
+    );
