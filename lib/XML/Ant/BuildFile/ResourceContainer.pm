@@ -13,7 +13,7 @@ use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 package XML::Ant::BuildFile::ResourceContainer;
 
 BEGIN {
-    $XML::Ant::BuildFile::ResourceContainer::VERSION = '0.211';
+    $XML::Ant::BuildFile::ResourceContainer::VERSION = '0.212';
 }
 
 # ABSTRACT: Container for XML::Ant::BuildFile::Resource plugins
@@ -72,7 +72,7 @@ XML::Ant::BuildFile::ResourceContainer - Container for XML::Ant::BuildFile::Reso
 
 =head1 VERSION
 
-version 0.211
+version 0.212
 
 =head1 SYNOPSIS
 
