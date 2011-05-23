@@ -7,7 +7,6 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-use 5.010;
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
@@ -33,11 +32,10 @@ isa_ok(
 );
 cmp_bag(
     [ $filelist->map_files( sub {"$ARG"} ) ],
-    [ map { target_mincat($ARG) } qw(css/min/site.css js/min/site.js) ],
+    [   map { unix_filestr_to_native("t/target/yui/mincat/$ARG") }
+            qw(css/min/site.css js/min/site.js),
+    ],
     'names in file list',
 );
 
-sub target_mincat {
-    return Path::Class::File->new_foreign( 'Unix', 't/target/yui/mincat',
-        @ARG )->stringify();
-}
+sub unix_filestr_to_native { file( split q{/}, $ARG[0] )->stringify() }

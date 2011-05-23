@@ -7,7 +7,6 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-use 5.010;
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
@@ -45,7 +44,6 @@ cmp_deeply(
     'path location pairs',
 );
 
-sub target_yui {
-    return Path::Class::File->new_foreign( 'Unix', 't/target/yui', @ARG )
-        ->stringify();
-}
+sub target_yui { unix_filestr_to_native("t/target/yui/$ARG[0]") }
+
+sub unix_filestr_to_native { file( split q{/}, $ARG[0] )->stringify() }

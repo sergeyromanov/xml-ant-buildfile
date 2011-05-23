@@ -7,12 +7,12 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-use 5.010;
 use utf8;
 use Modern::Perl;    ## no critic (UselessNoCritic,RequireExplicitPackage)
 
 use English '-no_match_vars';
 use Test::Most;
+use Path::Class;
 use Readonly;
 use XML::Ant::BuildFile::Project;
 
@@ -37,13 +37,16 @@ for my $task (@java_tasks) {
 
 cmp_deeply(
     [ map { @{ [ $ARG->args ] }[ 4, 6 ] } @java_tasks ],
-    [   't/target/yui/concat/site.css',
-        't/target/yui/mincat/css/min/site.css',
-        't/target/yui/concat/site.js',
-        't/target/yui/mincat/js/min/site.js',
+    [   map { unix_filestr_to_native("t/target/yui/$ARG") }
+            qw(
+            concat/site.css mincat/css/min/site.css
+            concat/site.js  mincat/js/min/site.js
+            )
     ],
     'pathref args',
 );
 $tests++;
 
-done_testing($tests);
+done_testing();
+
+sub unix_filestr_to_native { file( split q{/}, $ARG[0] )->stringify() }
